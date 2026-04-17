@@ -14,6 +14,7 @@
 | 2026-04-18 | Oku-Anla sistemi | KURAL 10: oturum değişimi + bağlam kaybı protokolü |
 | 2026-04-18 | GitHub push | Commit b8edd2a pushlandı |
 | 2026-04-18 | START.md | Tek giriş noktası — projenin %100'ü tek dosyada |
+| 2026-04-18 | Hafıza yedekleme sistemi | z-memory-backup private repo + KURAL 11/12 + checkpoint-history.md |
 
 ## Devam Eden
 | Görev | Öncelik | Bağımlılık |

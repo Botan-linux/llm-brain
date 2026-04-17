@@ -1,33 +1,33 @@
 # Checkpoint
 
 ## Tarih: 2026-04-18
-## Saat: 23:50
+## Saat: 22:52
 
 ## Durum
-- Son çalışan görev: Token yönetim sistemi + Oku-Anla sistemi
+- Son çalışan görev: Hafıza yedekleme sistemi kurulumu
 - Durumu: TAMAMLANDI
-- Son GitHub push: 667d2da (main)
+- Son GitHub push: c13fd48 (main) + z-memory-backup b924500
 
 ## Tamamlanan (Bu Oturum)
-- memory-bank sistemi kurulumu ve zenginleştirme
-- .z-ai/ dizini oluşturuldu (6 dosya: rules, quick-start, START, tokens, file-map, session-protocol)
-- Obsidian referansları temizlendi, research/ silindi
-- KURAL 9: Token kullanım kuralı (GitHub push token gömme)
-- KURAL 10: "Oku ve Anla" sistemi
-- START.md: Tek giriş noktası (projenin %100'ü tek dosyada)
-- git credential.helper store ayarı (token kalıcı)
-- GitHub'a push başarılı
+- z-memory-backup private repo oluşturuldu (GitHub API ile)
+- 15 dosya yedeklendi (.z-ai/ + memory-bank/ + sessions/)
+- KURAL 11: Otomatik yedekleme (her llm-brain push'ından sonra)
+- KURAL 12: Checkpoint geçmişi (zaman makinesi)
+- checkpoint-history.md oluşturuldu (1. checkpoint kaydedildi)
+- tokens.md'ye z-memory-backup repo bilgisi eklendi
+- START.md güncellendi (12 kural + yedekleme bilgisi)
+- llm-brain: c13fd48 push
+- z-memory-backup: b924500 push
 
 ## Sonraki Adım
 - api.py (FastAPI REST API wrapper) yazılması
 
 ## Aktif Dosyalar
-- `.z-ai/rules.md` (10 kural)
-- `.z-ai/tokens.md` (GitHub token kayıtlı)
-- `.z-ai/quick-start.md`
-- `.z-ai/file-map.md`
-- `.z-ai/session-protocol.md`
+- `.z-ai/rules.md` (12 kural)
+- `.z-ai/tokens.md` (GitHub token + yedekleme repo bilgisi)
+- `.z-ai/START.md` (güncellendi)
 - `memory-bank/checkpoint.md`
+- `memory-bank/checkpoint-history.md` (YENİ)
 - `memory-bank/activeContext.md`
 
 ## Bilinen Sorunlar
