@@ -100,10 +100,23 @@ class PrefrontalCortex:
         # 2. Puanlara göre sırala
         scored_options.sort(key=lambda x: x[1], reverse=True)
 
-        # 3. Öz-denetim: Düşük enerjide riskli kararlardan kaçın
-        selected = scored_options[0][0]
-        confidence = scored_options[0][1]
+        # 3. SERENDİPİ MEKANİZMASI (Keşifsel Rastgelelik)
+        # İnsan beyni bazen en mantıklı seçimi değil, farklı bir seçimi dener
+        # Bu bilişsel esnekliği artırır ve yaratıcılığı destekler
+        import random
+        serendipity_chance = 0.15  # %15 şansla rastgele (farklı) seçim
+        if len(scored_options) > 1 and random.random() < serendipity_chance:
+            # İlk 2-3 seçenek arasından rastgele seç
+            top_n = min(3, len(scored_options))
+            chosen_idx = random.randint(0, top_n - 1)
+            selected = scored_options[chosen_idx][0]
+            confidence = scored_options[chosen_idx][1] * 0.95  # Hafif güven düşüşü
+        else:
+            # En yüksek puanlı seçeneği seç
+            selected = scored_options[0][0]
+            confidence = scored_options[0][1]
 
+        # 4. Öz-denetim: Düşük enerjide riskli kararlardan kaçın
         if energy_level < 30:
             # Düşük enerjide güvenli seçeneğe yönel
             for opt, score in scored_options:
@@ -123,7 +136,7 @@ class PrefrontalCortex:
                         self.self_control_score = min(1.0, self.self_control_score + 0.05)
                         break
 
-        # 4. Kararı kaydet
+        # 5. Kararı kaydet
         decision = {
             "context": context[:200],
             "selected_action": selected.get("action", "bilinmeyen"),
@@ -153,6 +166,18 @@ class PrefrontalCortex:
         """Tek bir seçeneği çok faktörlü değerlendirir."""
         score = 0.5  # Temel skor
 
+        # === TEKRAR CEZASI (Repetition Penalty) ===
+        # Son 5 kararda aynı aksiyon seçilmişse ceza uygula — bilişsel esnekliği teşvik et
+        action = option.get("action", "")
+        recent_actions = [d["selected_action"] for d in self.decision_log[-5:]]
+        repeat_count = recent_actions.count(action)
+        if repeat_count >= 3:
+            score -= 0.25  # Ağır ceza — 3+ kez aynı seçim
+        elif repeat_count >= 2:
+            score -= 0.12  # Orta ceza — 2 kez aynı
+        elif repeat_count == 1:
+            score -= 0.04  # Hafif ceza — 1 kez yakın geçmişte
+
         # Risk analizi
         risk = option.get("risk", 0.5)
         if risk < 0.3:
@@ -166,7 +191,7 @@ class PrefrontalCortex:
             score -= 0.2
 
         # Önceki deneyimler: Benzer bağlamlarda aynı eylem iyi sonuç vermişse bonus
-        prev = self._find_previous_outcome(option.get("action", ""), context)
+        prev = self._find_previous_outcome(action, context)
         if prev is not None:
             score += prev * 0.2  # -1 ile 1 arası, olumlu ise bonus
 
@@ -177,10 +202,20 @@ class PrefrontalCortex:
             score += 0.1
         if emotion == "exhausted" and option.get("type") == "rest":
             score += 0.15
+        if emotion == "happy" and option.get("type") == "respond":
+            score += 0.08
+        if emotion == "engaged" and option.get("type") in ("think", "explore"):
+            score += 0.08
 
         # Neden kalitesi: Gerekçe sunulmuşsa bonus
         if option.get("reason") and len(option.get("reason", "")) > 20:
             score += 0.05
+
+        # === KEŞIF BONUSU (Exploration Bonus) ===
+        # Hiç denenmemiş aksiyonlara hafif bonus ver — insan da yeni şeyler dener
+        all_past_actions = set(d["selected_action"] for d in self.decision_log[-30:])
+        if action not in all_past_actions and len(all_past_actions) > 0:
+            score += 0.1  # Yeni aksiyon = keşif bonusu
 
         return max(0, min(1, score))
 
@@ -216,8 +251,9 @@ class PrefrontalCortex:
         diversity = unique_actions / len(recent_actions)
 
         # Çeşitlilik yüksekse bilişsel esneklik artar
+        # Eski: 0.1 → çok yavaş. Yeni: 0.2 → daha insansız adaptasyon
         target = 0.3 + (diversity * 0.5)
-        self.cognitive_flexibility += (target - self.cognitive_flexibility) * 0.1
+        self.cognitive_flexibility += (target - self.cognitive_flexibility) * 0.2
         self.cognitive_flexibility = round(max(0.1, min(1.0, self.cognitive_flexibility)), 3)
 
     def create_plan(self, goal, steps, priority="normal"):

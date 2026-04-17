@@ -41,6 +41,7 @@ class DreamEngine:
         self._dream_count = 0
         self._rem_phase = "NREM"  # NREM veya REM
         self._cycle_count = 0
+        self._own_failures = 0  # Kendi hata sayacı (global'den bağımsız)
 
         # Arka plan thread
         self.thread = threading.Thread(target=self._dream_cycle, daemon=True)
@@ -52,8 +53,11 @@ class DreamEngine:
             # Bekleme
             time.sleep(random.randint(*self.interval_range))
 
-            if not self.intelligence.is_healthy():
-                continue
+            # Kendi hata sayacı ile kontrol — global is_healthy() ana thread'deki hatalardan etkilenmesin
+            if self._own_failures >= 5:
+                logger.warning("Dream Engine: 5 art arda hata, beklemede...")
+                time.sleep(120)
+                self._own_failures = 0  # Reset ve tekrar dene
 
             self._cycle_count += 1
 
@@ -78,8 +82,14 @@ class DreamEngine:
         self._dream_count += 1
 
         # 1. Anı birleştirme
-        memories = self.memory.retrieve_memories(limit=8)
+        try:
+            memories = self.memory.retrieve_memories(limit=8)
+        except Exception as e:
+            logger.warning(f"Dream Engine: Hafıza okuma hatası: {e}")
+            return
+        
         if len(memories) < 2:
+            logger.debug("Dream Engine: Yetersiz anı, atlanıyor.")
             return
 
         # İki rastgele anı seç
@@ -95,45 +105,67 @@ class DreamEngine:
             f"Deneyim 2: {str(data2.get('stimulus', ''))[:150]} → {str(data2.get('response', ''))[:150]}"
         )
 
-        insight = self.intelligence.query(prompt, "Rüya halinde düşünüyorsun. Mantıksal sınırlar yok. Yaratıcı ve sembolik bağlar kur.")
+        try:
+            insight = self.intelligence.query(prompt, "Rüya halinde düşünüyorsun. Mantıksal sınırlar yok. Yaratıcı ve sembolik bağlar kur.")
+        except Exception as e:
+            self._own_failures += 1
+            logger.warning(f"Dream Engine: LLM çağrı hatası: {e}")
+            return
 
-        if insight and "hata" not in insight.lower() and "tıkanıklık" not in insight.lower():
-            insight_short = insight[:300]
+        # Başarılı çağrı → hata sayacını sıfırla
+        self._own_failures = 0
 
-            dream_record = {
-                "id": self._dream_count,
-                "type": "creative_connection",
-                "content": insight_short,
-                "connected_memories": [
-                    str(data1.get("stimulus", ""))[:80],
-                    str(data2.get("stimulus", ""))[:80]
-                ],
-                "phase": "REM",
-                "timestamp": datetime.now().isoformat()
-            }
+        if not insight:
+            return
+        if "hata" in insight.lower() or "tıkanıklık" in insight.lower() or "bağlantı" in insight.lower():
+            self._own_failures += 1
+            return
 
-            self.dream_log.append(dream_record)
-            with self._lock:
-                self.insights.append(insight_short)
-                # İçgörü listesini sınırla
-                if len(self.insights) > 30:
-                    self.insights = self.insights[-30:]
-            if len(self.dream_log) > 50:
-                self.dream_log = self.dream_log[-50:]
+        # Başarılı bir rüya içgörüsü
+        insight_short = insight[:300]
 
-            # Kalıcı belleğe kaydet
+        dream_record = {
+            "id": self._dream_count,
+            "type": "creative_connection",
+            "content": insight_short,
+            "connected_memories": [
+                str(data1.get("stimulus", ""))[:80],
+                str(data2.get("stimulus", ""))[:80]
+            ],
+            "phase": "REM",
+            "timestamp": datetime.now().isoformat()
+        }
+
+        self.dream_log.append(dream_record)
+        with self._lock:
+            self.insights.append(insight_short)
+            if len(self.insights) > 30:
+                self.insights = self.insights[-30:]
+        if len(self.dream_log) > 50:
+            self.dream_log = self.dream_log[-50:]
+
+        # Kalıcı belleğe kaydet
+        try:
             self.memory.store_experience({
                 "type": "dream_insight",
                 "content": insight_short,
                 "dream_number": self._dream_count
             }, is_critical=False)
+        except Exception as e:
+            logger.debug(f"Dream Engine: Bellek kayıt hatası: {e}")
 
-            # 2. Duygusal sakinleştirme
-            if self.emotional:
+        # 2. Duygusal sakinleştirme
+        if self.emotional:
+            try:
                 self.emotional.decay(rate=0.02)
+            except Exception:
+                pass
 
-            # 3. Problem çözme girişimi
+        # 3. Problem çözme girişimi
+        try:
             self._attempt_problem_solving(memories)
+        except Exception as e:
+            logger.debug(f"Dream Engine: Problem çözme hatası: {e}")
 
     def _process_nrem(self):
         """
@@ -143,12 +175,16 @@ class DreamEngine:
         - Duygusal adaptasyon (hafif)
         - Hafıza temizliği
         """
-        # Basit hafıza temizliği
-        self.memory.apply_neuroplasticity(decay_rate=0.005)
+        try:
+            self.memory.apply_neuroplasticity(decay_rate=0.005)
+        except Exception as e:
+            logger.debug(f"Dream Engine NREM: Hafıza temizliği hatası: {e}")
 
-        # Duygusal hafıza hafif adaptasyon
-        if self.emotional:
-            self.emotional.decay(rate=0.005)
+        try:
+            if self.emotional:
+                self.emotional.decay(rate=0.005)
+        except Exception:
+            pass
 
     def _attempt_problem_solving(self, memories):
         """
