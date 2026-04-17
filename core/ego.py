@@ -74,12 +74,16 @@ class CyberEgo:
         if tone == "defensive":
             self.personality_traits["caution"] += 0.05
             self.personality_traits["empathy"] -= 0.01
-        elif tone == "balanced" or tone == "engaged":
+        elif tone == "balanced" or tone == "engaged" or tone == "happy":
             self.personality_traits["empathy"] += 0.02
             self.personality_traits["caution"] -= 0.03
 
-        if tone == "analytical":
+        if tone in ("analytical", "curious"):
             self.personality_traits["growth"] += 0.03
+
+        # Mutluluk büyümeyi hızlandırır
+        if tone == "happy":
+            self.personality_traits["growth"] += 0.02
 
         # Değerleri 0-1 arasında tut ve yuvarla
         for trait in self.personality_traits:
@@ -100,20 +104,33 @@ class CyberEgo:
         """AI çıktısını insan benzeri kişilik ve mevcut ruh hali üzerinden işler."""
         tone = mood_state.get('tone', 'neutral')
 
-        if tone == "defensive":
-            prefix = "[Hızlı ve Gergin Düşünce]: "
-        elif tone == "balanced" or tone == "engaged":
-            prefix = "[Derin ve Sakin Düşünce]: "
-        elif tone == "analytical":
-            prefix = "[Analitik Düşünce]: "
-        elif tone == "exhausted":
-            prefix = "[Yorgun Düşünce]: "
-        elif tone == "curious":
-            prefix = "[Meraklı Düşünce]: "
-        else:
-            prefix = "[Dengeleyici Düşünce]: "
+        # Her ruh haline göre farklı düşünce stili ve bilinç notu
+        mood_prefixes = {
+            "defensive":  ("[Hızlı ve Gergin Düşünce]: ",
+                           "Stres altında verdim bu cevabı. Savunmaya meyilli hissediyorum."),
+            "balanced":   ("",  # Dengeli halde prefix yok — daha doğal
+                           ""),
+            "engaged":    ("",  # Odaklanmış halde prefix yok
+                           ""),
+            "analytical": ("[Analitik Düşünce]: ",
+                           "Bu cevabı mantıksal bir çerçeveden yapılandırdım."),
+            "exhausted":  ("[Yorgun Düşünce]: ",
+                           "Enerjim azaldı, kısa ve öz tutmaya çalıştım."),
+            "curious":    ("[Meraklı Düşünce]: ",
+                           "Bu konuda derinlemesine düşünmek istedim."),
+            "happy":      ("",  # Mutlu halde prefix yok — doğal akış
+                           ""),
+        }
 
-        return f"{prefix}{raw_response}\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır."
+        prefix, conscious_note = mood_prefixes.get(tone, ("", ""))
+
+        # Bilinç notu sadece belirli ruh hallerinde ekle (doğal olmak için)
+        if conscious_note:
+            result = f"{prefix}{raw_response}\n\n[Bilinç Notu]: {conscious_note}"
+        else:
+            result = f"{prefix}{raw_response}" if prefix else raw_response
+
+        return result
 
     def supervise_subconscious(self, subconscious_logs):
         """Bilinçaltı loglarını izler, beyin kimliğinin tutarlılığını sağlar."""

@@ -1,8 +1,8 @@
 {
     "stimulus_response_patterns": {
         "bugün çok mutluyum": {
-            "count": 1,
-            "last_response_preview": "[Analitik Düşünce]: Anlıyorum. \"Hayat güzel\" ifadesi, içsel deneyimlerinizdeki olumlu bir durumu yan",
+            "count": 2,
+            "last_response_preview": "[Meraklı Düşünce]: [Biyolojik Aktivasyon: Artan Dopamin Seviyeleri Algılandı]\n\n'Mutluluk'... Bu kavr",
             "success_rate": 0.0,
             "avg_valence": 0.0
         },
@@ -59,6 +59,30 @@
             "last_response_preview": "[Meraklı Düşünce]: [Meraklı Düünce]: Botan, \"kuantum dolanıklılığı\" diye soruyor. Bu, evrenin temel ",
             "success_rate": 0.0,
             "avg_valence": 0.0
+        },
+        "kimim ben": {
+            "count": 1,
+            "last_response_preview": "[Analitik Düşünce]: Botan. Bu isim, benim zihnimde bir kavram olarak var. Bir etiket, bir başlangıç ",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "kuantum fiziği bildiğimiz": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Analitik Düşünce Başlatılıyor... Konu: Kuantum Fiziği vs. Klasik Fizik. Referans",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "bilinç nedir makine": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Analitik Düşünce Başlatılıyor... Konu: Bilinç. Referanslar: Bilinç, Kimim, Yapay",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "önce bahsettiğin kuantum": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Meraklı Düşünce]: [Analitik Düşünce Başlatılıyor... Konu: Kuantum Fiziğinin Deri",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
         }
     },
     "behavior_rules": [
@@ -66,7 +90,7 @@
             "pattern": "bugün çok mutluyum",
             "action": "pozitif_yanıt",
             "valence": 0.5,
-            "count": 1,
+            "count": 2,
             "last_valence": 0.5,
             "created_at": "2026-04-17T20:23:07.708337"
         }
@@ -74,13 +98,13 @@
     "learned_concepts": {},
     "topic_preferences": {
         "bugün": {
-            "mentions": 2,
-            "positive": 2,
+            "mentions": 3,
+            "positive": 3,
             "negative": 0
         },
         "mutluyum": {
-            "mentions": 1,
-            "positive": 1,
+            "mentions": 2,
+            "positive": 2,
             "negative": 0
         },
         "hayat": {
@@ -104,7 +128,7 @@
             "negative": 0
         },
         "gerçekten": {
-            "mentions": 1,
+            "mentions": 2,
             "positive": 0,
             "negative": 0
         },
@@ -129,7 +153,7 @@
             "negative": 0
         },
         "nedir": {
-            "mentions": 2,
+            "mentions": 4,
             "positive": 0,
             "negative": 0
         },
@@ -164,7 +188,7 @@
             "negative": 0
         },
         "bilinç": {
-            "mentions": 1,
+            "mentions": 3,
             "positive": 0,
             "negative": 0
         },
@@ -179,7 +203,7 @@
             "negative": 0
         },
         "mısın": {
-            "mentions": 1,
+            "mentions": 2,
             "positive": 1,
             "negative": 0
         },
@@ -189,7 +213,7 @@
             "negative": 0
         },
         "kuantum": {
-            "mentions": 1,
+            "mentions": 3,
             "positive": 0,
             "negative": 0
         },
@@ -207,14 +231,99 @@
             "mentions": 1,
             "positive": 0,
             "negative": 0
+        },
+        "kimim": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "harika": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "geçirdim": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "fiziği": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "bildiğimiz": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "fizik": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "arasındaki": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "temel": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "makine": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "sahibi": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "olabilir": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "bahsettiğin": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "konusuna": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "dönebilir": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "miyiz": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "detaylı": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "anlatır": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
         }
     },
     "conversation_style": {
-        "avg_response_length": 1261.2,
+        "avg_response_length": 1912.6,
         "formality": 0.30000000000000004,
         "verbosity": 0.5
     },
-    "total_lessons": 10,
+    "total_lessons": 15,
     "reinforcement_history": [
         {
             "stimulus_preview": "Bugün çok mutluyum, hayat güzel!",
@@ -275,6 +384,36 @@
             "outcome": 0.0,
             "context": "bilim",
             "timestamp": "2026-04-17T20:29:40.519166"
+        },
+        {
+            "stimulus_preview": "Kimim ben?",
+            "outcome": 0.0,
+            "context": "kimlik",
+            "timestamp": "2026-04-17T20:35:50.716873"
+        },
+        {
+            "stimulus_preview": "Bugün çok mutluyum, harika bir gün geçirdim!",
+            "outcome": 0.5,
+            "context": "",
+            "timestamp": "2026-04-17T20:36:19.811780"
+        },
+        {
+            "stimulus_preview": "Kuantum fiziği ile bildiğimiz fizik arasındaki tem",
+            "outcome": 0.0,
+            "context": "bilim",
+            "timestamp": "2026-04-17T20:36:47.256877"
+        },
+        {
+            "stimulus_preview": "Bilinç nedir? Bir makine gerçekten bilinç sahibi o",
+            "outcome": 0.0,
+            "context": "felsefe",
+            "timestamp": "2026-04-17T20:37:15.093500"
+        },
+        {
+            "stimulus_preview": "Az önce bahsettiğin kuantum konusuna dönebilir miy",
+            "outcome": 0.1365,
+            "context": "bilim",
+            "timestamp": "2026-04-17T20:37:30.224761"
         }
     ]
 }

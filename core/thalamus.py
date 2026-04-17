@@ -54,8 +54,10 @@ class Thalamus:
         # Enerji analizi: Enerji kritik seviyenin (20) altındaysa beyin koruma moduna girer
         is_low_energy = current_energy < 20
 
-        # Enerji düşükse beyin daha seçici olur (Eşik yükselir)
-        effective_threshold = self.attention_threshold + (1.0 - (current_energy / 100.0)) * 0.4
+        # Enerji düşükse beyin daha seçici olur — ama insanda bile %50'ye kadar çalışır
+        # Eski formül: +(1.0 - energy/100) * 0.4 → %40'da threshold 0.54'e çıkıyordu (çok agresif)
+        # Yeni formül: +(1.0 - energy/100) * 0.15 → %40'da threshold 0.39 (insan benzeri)
+        effective_threshold = self.attention_threshold + (1.0 - (current_energy / 100.0)) * 0.15
 
         # Kritik komutları kontrol et
         stimulus_lower = stimulus_data.lower()
@@ -65,18 +67,26 @@ class Thalamus:
 
         # Uzunluk skoru ekle
         word_count = len(stimulus_data.split())
+        if word_count > 5:
+            score += 0.05
         if word_count > 10:
             score += 0.1
         if word_count > 20:
             score += 0.1
 
+        # Soru işareti olan girdiler her zaman dikkati çeker
+        if "?" in stimulus_data:
+            score = max(score, 0.55)
+
         # 3. Sonuç: Odaklanmalı mıyız?
         should_focus = score >= effective_threshold
 
+        # Sadece KRİTİK enerji (< 15) ve düşük öncelikli uyaranlar filtrelenir
+        # İnsan bile çok yorgunken selamlayabilir, soru sorabilir
         if is_low_energy and not any(k in stimulus_lower for k in ["p4antom", "botan", "uyu", "sleep", "kritik"]):
-            if score < 0.9:
+            if score < 0.7:
                 self._total_filtered += 1
-                return False, score, "Enerji Koruma: Beyin dinlenmeye ihtiyaç duyuyor."
+                return False, score, "Enerji Koruma: Sadece önemli uyaranlara odaklanılıyor."
 
         if should_focus:
             self._total_passed += 1

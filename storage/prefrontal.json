@@ -89,10 +89,145 @@
             "emotional_state": "curious",
             "alternatives_count": 2,
             "timestamp": "2026-04-17T20:29:30.941585"
+        },
+        {
+            "context": "Kimim ben?",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.85,
+            "energy_at_decision": 74.5,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:35:40.494153"
+        },
+        {
+            "context": "Bugün çok mutluyum, harika bir gün geçirdim!",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.89,
+            "energy_at_decision": 66.25,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:35:51.717643"
+        },
+        {
+            "context": "Kuantum fiziği ile bildiğimiz fizik arasındaki temel fark nedir?",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 55.85,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:36:20.812491"
+        },
+        {
+            "context": "Bilinç nedir? Bir makine gerçekten bilinç sahibi olabilir mi?",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 47.1,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:36:48.259150"
+        },
+        {
+            "context": "Az önce bahsettiğin kuantum konusuna dönebilir miyiz? Daha detaylı anlatır mısın?",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 36.5,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:37:16.094226"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.85,
+            "energy_at_decision": 100,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546137"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.89,
+            "energy_at_decision": 100,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546216"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.898,
+            "energy_at_decision": 100,
+            "emotional_state": "defensive",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546251"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.902,
+            "energy_at_decision": 100,
+            "emotional_state": "exhausted",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546278"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 1,
+            "energy_at_decision": 50,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546304"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.913,
+            "energy_at_decision": 50,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546686"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.914,
+            "energy_at_decision": 50,
+            "emotional_state": "defensive",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546725"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.914,
+            "energy_at_decision": 50,
+            "emotional_state": "exhausted",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546751"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.814,
+            "energy_at_decision": 20,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546776"
+        },
+        {
+            "context": "Karmaşık bir soru",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 20,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:40:20.546803"
         }
     ],
     "impulse_threshold": 0.7,
-    "cognitive_flexibility": 0.501,
+    "cognitive_flexibility": 0.423,
     "plan_memory": [
         {
             "id": 1,
@@ -149,6 +284,6 @@
             "blocked": false
         }
     ],
-    "total_decisions": 10,
+    "total_decisions": 25,
     "self_control_score": 0.5900000000000001
 }

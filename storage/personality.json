@@ -1,6 +1,6 @@
 {
-    "curiosity": 0.95,
+    "curiosity": 1,
     "empathy": 0.5,
     "caution": 0.6,
-    "growth": 0.52
+    "growth": 0.64
 }

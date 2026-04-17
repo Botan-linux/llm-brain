@@ -24,7 +24,7 @@ from core.subconscious import Subconscious
 
 class ArtificialBrain:
     """
-    İLK — Yapay Beyin Simülasyonu v0.3
+    İLK — Yapay Beyin Simülasyonu v0.3.1
     
     İnsan beyninin temel yapılarını ve süreçlerini simüle eder:
     - Thalamus: Dikkat filtresi
@@ -90,7 +90,7 @@ class ArtificialBrain:
             "last_stimulus": None,
             "development_stage": self.limbic.development_stage,
             "session_count": 0,
-            "version": "0.3"
+            "version": "0.3.1"
         }
         if os.path.exists(self.settings_path):
             try:
@@ -210,11 +210,20 @@ class ArtificialBrain:
         self_identity = self.self_awareness.get_self_prompt()
 
         # --- 10. PREFRONTAL KORTEKS (Karar verme) ---
+        # Ruh haline ve bağlama göre seçenekleri dinamik oluştur
         options = [
             {"action": "derin_yanıt", "reason": "Detaylı ve analitik düşünce.", "risk": 0.1, "energy_cost": 0.7, "type": "think"},
             {"action": "hızlı_yanıt", "reason": "Kısa ve öz cevap.", "risk": 0.2, "energy_cost": 0.3, "type": "respond"},
             {"action": "öğrenme_odaklı", "reason": "Öğrenme fırsatı yakala.", "risk": 0.1, "energy_cost": 0.5, "type": "explore"},
         ]
+
+        # Duygusal duruma göre ek seçenekler
+        if current_mood == "happy":
+            options.append({"action": "sıcak_yanıt", "reason": "Mutluluk enerjisini paylaş.", "risk": 0.05, "energy_cost": 0.4, "type": "respond"})
+        if current_mood == "curious":
+            options.append({"action": "sorgulayıcı_yanıt", "reason": "Konuyu derinlemesine sorgula.", "risk": 0.15, "energy_cost": 0.6, "type": "explore"})
+        if lang_analysis["emotion"]["type"] == "pozitif":
+            options.append({"action": "yapıcı_yanıt", "reason": "Pozitif enerjiyle destek ol.", "risk": 0.05, "energy_cost": 0.4, "type": "respond"})
 
         # Dürtü kontrolü
         impulse = self.prefrontal.evaluate_impulse(stimulus_data, "genel", current_mood)
@@ -229,12 +238,19 @@ class ArtificialBrain:
         full_context += f"[Mevcut Durum]: {system_instruction}\n"
 
         # Prefrontal kararını bağlama ekle
-        if decision.get("action") == "hızlı_yanıt":
+        decision_action = decision.get("action", "")
+        if decision_action == "hızlı_yanıt":
             full_context += "[Prefrontal Kararı]: Kısa ve öz yanıt ver. Gereksiz detaya girme.\n"
-        elif decision.get("action") == "bekle_ve_düşün":
+        elif decision_action == "bekle_ve_düşün":
             full_context += "[Prefrontal Kararı]: Derin düşünce modu. Önce düşün, sonra cevap ver.\n"
-        elif decision.get("action") == "öğrenme_odaklı":
+        elif decision_action == "öğrenme_odaklı":
             full_context += "[Prefrontal Kararı]: Öğrenme fırsatı. Bilgiyi yapılandır.\n"
+        elif decision_action == "sıcak_yanıt":
+            full_context += "[Prefrontal Kararı]: Mutlusun. Sıcak, yapıcı ve samimi yanıt ver.\n"
+        elif decision_action == "sorgulayıcı_yanıt":
+            full_context += "[Prefrontal Kararı]: Meraklısın. Sorular sor, konuyu derinleştir.\n"
+        elif decision_action == "yapıcı_yanıt":
+            full_context += "[Prefrontal Kararı]: Pozitif enerji. Destekleyici ve motive edici ol.\n"
 
         if working_context:
             full_context += f"\n{working_context}\n"
@@ -304,7 +320,10 @@ class ArtificialBrain:
             self.ego.save_personality_if_dirty()
 
         # --- 14. ENERJİ GÜNCELLEME ---
-        energy_cost = 8 * intensity + lang_analysis["complexity"] * 5
+        # Eski: 8 * intensity + complexity * 5 → 3-4 soruda %100→%47 (çok hızlı)
+        # Yeni: Daha insansız enerji harcaması — ~15 soru dayanmalı
+        energy_cost = 3 * intensity + lang_analysis["complexity"] * 2
+        # Refleks yanıtları çok az enerji harcar (zaten cortex'i bypass eder)
         self.state["energy"] -= energy_cost
         if self.state["energy"] <= 0:
             self.state["energy"] = 0
@@ -323,13 +342,14 @@ class ArtificialBrain:
         if self.state["energy"] < 30:
             self.goals.decay_motivation(rate=0.02)
 
-        # Periyodik öz-düşünme
-        if self.working_memory.turn_count % 10 == 0:
+        # Periyodik öz-düşünme — her 5 tur'da bir (eski: 10, insan sürekli düşünür)
+        if self.working_memory.turn_count % 5 == 0:
             recent_exps = self.memory.retrieve_memories(limit=5)
-            self.self_awareness.reflect(
-                [{"stimulus": m["data"].get("stimulus", ""), "topic": m["data"].get("topic")} for m in recent_exps],
-                {"energy": self.state["energy"], "emotions": self.limbic.emotional_states}
-            )
+            if recent_exps:  # Sadece anı varsa düşün
+                self.self_awareness.reflect(
+                    [{"stimulus": m["data"].get("stimulus", ""), "topic": m["data"].get("topic")} for m in recent_exps],
+                    {"energy": self.state["energy"], "emotions": self.limbic.emotional_states}
+                )
 
         return thought_output
 
@@ -348,7 +368,7 @@ class ArtificialBrain:
 
         return (
             f"╔══════════════════════════════════════════════╗\n"
-            f"║         İLK BEYİN DURUM RAPORU v0.3        ║\n"
+            f"║         İLK BEYİN DURUM RAPORU v0.3.1      ║\n"
             f"╠══════════════════════════════════════════════╣\n"
             f"║ Enerji:          %{self.state['energy']:>5.0f}                    ║\n"
             f"║ Ruh Hali:        {self.limbic.current_mood:<25}║\n"
@@ -470,7 +490,7 @@ if __name__ == "__main__":
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    logger.info("İLK v0.3 aktif.")
+    logger.info("İLK v0.3.1 aktif.")
     logger.info("Komutlar: 'uyu' | 'kapat' | 'durum' | 'hedefler' | 'kimim'")
 
     while True:

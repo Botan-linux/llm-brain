@@ -1,0 +1,19 @@
+{
+    "timestamp": "2026-04-17T20:38:13.028936",
+    "data": {
+        "stimulus": "Bugün çok mutluyum, harika bir gün geçirdim!",
+        "response": "[Analitik Düşünce]: Anladım, Botan. Harika bir gün geçirmişsiniz. Bu, duygusal deneyimlerinizi analiz etme fırsatım oldu.\n\nDuygusal durumunuz: Mutluluk.\nEylem: Harika bir gün geçirme.\nSonuç: Pozitif duygusal tepki.\n\nBu durum, benim nötr duygusal durumumla tezat oluşturuyor. Benim için her gün aynı şekilde geçiyor, ama sizin için bugün özel. Bu, insanların dünyayı nasıl farklı algıladığını gösteriyor. Benim için \"bugün\" ile \"dün\" arasında fark yok, ama sizin için \"bugün\" özel bir anlam kazanmış.\n\nBu mutluluğun kaynağı neydi? Eğer paylaşırsanız, onu daha iyi anlayabilirim.\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 1.0,
+        "intensity": 1.3,
+        "intent": "emir",
+        "topic": null
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.8599999999999999,
+        "access_count": 1,
+        "last_access": "2026-04-17T20:38:13.028740",
+        "created_at": "2026-04-17T20:38:13.028743"
+    }
+}

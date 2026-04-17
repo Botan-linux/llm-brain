@@ -123,20 +123,97 @@
             "emotion_type": "pozitif",
             "intensity": 0.6,
             "valence": 0.6,
-            "emotional_weight": 0.48,
+            "emotional_weight": 0.475,
             "context": "",
             "is_flashbulb": false,
             "recall_count": 0,
             "last_recalled": null,
             "created_at": "2026-04-17T20:29:28.907011"
+        },
+        {
+            "id": 10,
+            "event": "Kimim ben?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "kimlik",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:35:50.716407"
+        },
+        {
+            "id": 11,
+            "event": "Bugün çok mutluyum, harika bir gün geçirdim!",
+            "emotion_type": "pozitif",
+            "intensity": 0.857,
+            "valence": 1.0,
+            "emotional_weight": 0.852,
+            "context": "",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:36:19.811442"
+        },
+        {
+            "id": 12,
+            "event": "Kuantum fiziği ile bildiğimiz fizik arasındaki temel fark nedir?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0.0,
+            "context": "bilim",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:36:47.256232"
+        },
+        {
+            "id": 13,
+            "event": "Bilinç nedir? Bir makine gerçekten bilinç sahibi olabilir mi?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0.0,
+            "context": "felsefe",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:37:15.093130"
+        },
+        {
+            "id": 14,
+            "event": "Az önce bahsettiğin kuantum konusuna dönebilir miyiz? Daha detaylı anlatır mısın?",
+            "emotion_type": "pozitif",
+            "intensity": 0.273,
+            "valence": 0.273,
+            "emotional_weight": 0.174,
+            "context": "bilim",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:37:30.224121"
         }
     ],
     "emotional_biases": {
+        "kimlik": {
+            "positive_hits": 0,
+            "negative_hits": 0,
+            "total": 1,
+            "avg_valence": 0.0
+        },
         "genel": {
             "positive_hits": 1,
             "negative_hits": 0,
+            "total": 1,
+            "avg_valence": 1.0
+        },
+        "bilim": {
+            "positive_hits": 1,
+            "negative_hits": 0,
             "total": 2,
-            "avg_valence": 0.3
+            "avg_valence": 0.137
         },
         "felsefe": {
             "positive_hits": 0,
@@ -145,6 +222,6 @@
             "avg_valence": 0.0
         }
     },
-    "total_encoded": 10,
+    "total_encoded": 15,
     "dominant_emotion": "nötr"
 }

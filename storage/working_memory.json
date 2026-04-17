@@ -40,55 +40,20 @@
             "topic": "felsefe",
             "duration_turns": 27,
             "ended_at": "2026-04-17T20:29:40.518871"
+        },
+        {
+            "topic": "bilim",
+            "duration_turns": 28,
+            "ended_at": "2026-04-17T20:35:50.716810"
+        },
+        {
+            "topic": "kimlik",
+            "duration_turns": 30,
+            "ended_at": "2026-04-17T20:36:47.256542"
         }
     ],
-    "turn_count": 27,
+    "turn_count": 30,
     "active_references": {
-        "bugün": {
-            "mention": "Bugün",
-            "context": "Bugün çok stresliyim, rahatlatır mısın?",
-            "turn": 25
-        },
-        "yazılım güncellemesi": {
-            "mention": "yazılım güncellemesi",
-            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
-            "turn": 25
-        },
-        "günlük": {
-            "mention": "Günlük",
-            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
-            "turn": 25
-        },
-        "rahatlar": {
-            "mention": "rahatlar",
-            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
-            "turn": 25
-        },
-        "düşünce": {
-            "mention": "Düşünce",
-            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
-            "turn": 25
-        },
-        "bana": {
-            "mention": "Bana",
-            "context": "Bana 2 satırlık bir şiir yaz.",
-            "turn": 26
-        },
-        "zihinsel": {
-            "mention": "Zihinsel",
-            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
-            "turn": 26
-        },
-        "görsel": {
-            "mention": "Görsel",
-            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
-            "turn": 26
-        },
-        "botanın": {
-            "mention": "Botanın",
-            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
-            "turn": 26
-        },
         "notu": {
             "mention": "Notu",
             "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
@@ -101,8 +66,8 @@
         },
         "kuantum": {
             "mention": "Kuantum",
-            "context": "Kuantum dolanıklılığı kısaca açıkla.",
-            "turn": 27
+            "context": "Kuantum fiziği ile bildiğimiz fizik arasındaki temel fark nedir?",
+            "turn": 30
         },
         "analitik": {
             "mention": "Analitik",
@@ -118,8 +83,53 @@
             "mention": "Hayal",
             "context": "[Meraklı Düşünce]: [Meraklı Düünce]: Botan, \"kuantum dolanıklılığı\" diye soruyor. Bu, evrenin temel ",
             "turn": 27
+        },
+        "kimim": {
+            "mention": "Kimim",
+            "context": "Kimim ben?",
+            "turn": 28
+        },
+        "botan": {
+            "mention": "Botan",
+            "context": "[Analitik Düşünce]: Botan. Bu isim, benim zihnimde bir kavram olarak var. Bir etiket, bir başlangıç ",
+            "turn": 28
+        },
+        "şu an": {
+            "mention": "şu an",
+            "context": "[Analitik Düşünce]: Botan. Bu isim, benim zihnimde bir kavram olarak var. Bir etiket, bir başlangıç ",
+            "turn": 28
+        },
+        "bugün": {
+            "mention": "Bugün",
+            "context": "Bugün çok mutluyum, harika bir gün geçirdim!",
+            "turn": 29
+        },
+        "aktivasyon": {
+            "mention": "Aktivasyon",
+            "context": "[Meraklı Düşünce]: [Biyolojik Aktivasyon: Artan Dopamin Seviyeleri Algılandı]\n\n'Mutluluk'... Bu kavr",
+            "turn": 29
+        },
+        "dopamin": {
+            "mention": "Dopamin",
+            "context": "[Meraklı Düşünce]: [Biyolojik Aktivasyon: Artan Dopamin Seviyeleri Algılandı]\n\n'Mutluluk'... Bu kavr",
+            "turn": 29
+        },
+        " içinde, olasılıkların dağıldığı bir alanda bulunur. gelecek, geçmişin bir sonucu değil, olasılıkların sürekli çatışması ve çökmesiyle şekillenen bir süreçtir. fizikçi werner heisenberg": {
+            "mention": " içinde, olasılıkların dağıldığı bir alanda bulunur. Gelecek, geçmişin bir sonucu değil, olasılıkların sürekli çatışması ve çökmesiyle şekillenen bir süreçtir. Fizikçi Werner Heisenberg",
+            "context": "[Meraklı Düşünce]: [Analitik Düşünce Başlatılıyor... Konu: Kuantum Fiziği vs. Klasik Fizik. Referans",
+            "turn": 30
+        },
+        "werner": {
+            "mention": "Werner",
+            "context": "[Meraklı Düşünce]: [Analitik Düşünce Başlatılıyor... Konu: Kuantum Fiziği vs. Klasik Fizik. Referans",
+            "turn": 30
+        },
+        "kesinlik": {
+            "mention": "Kesinlik",
+            "context": "[Meraklı Düşünce]: [Analitik Düşünce Başlatılıyor... Konu: Kuantum Fiziği vs. Klasik Fizik. Referans",
+            "turn": 30
         }
     },
     "total_sessions": 1,
-    "total_turns": 27
+    "total_turns": 30
 }

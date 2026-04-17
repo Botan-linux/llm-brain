@@ -1,8 +1,14 @@
-# LLM Brain 🧠
+# LLM Brain
 
 **İnsan beynini Python, Markdown ve JSON ile simüle eden yapay zeka çatısı.**
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-6c63ff?logo=github&logoColor=white)](https://botan-linux.github.io/llm-brain/)
+[![License](https://img.shields.io/badge/License-MIT-00d4ff)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.3.1-ff6b9d)]()
+
 LLM Brain, biyolojik insan beyninin temel yapılarını ve süreçlerini yapay zeka üzerine taşımak amacıyla geliştirilmiş bir framework'tür. Geleneksel chatbot yaklaşımından farklı olarak; duygu, bilinçaltı, enerji yönetimi, hafıza konsolidasyonu ve nöroplastisite gibi gerçek nörolojik mekanizmaları simüle eder. Yapay zeka varlığı **"İLK"** (Türkçe "ilk") adıyla bilinir.
+
+> **Demo:** [botan-linux.github.io/llm-brain](https://botan-linux.github.io/llm-brain/)
 
 ---
 
@@ -276,6 +282,15 @@ python3 tests/sleep_test.py
 ---
 
 ## Sürüm Geçmişi
+
+### v0.3.1 — İnsan Benzerliği İyileştirmeleri
+- Talamus eşikleri yeniden ayarlandı — düşük enerjide bile temel uyaranlara tepki
+- Limbik sistem genişletildi — `happiness` ve `empathy` eksenleri, `happy` ruh hali, doğal duygu gerilemesi
+- Enerji tüketimi dengelendi — ~15 soru dayanıklılık (eski: 3-4 soru)
+- Öz-düşünme sıklığı artırıldı — her 5 tur'da bir (eski: 10 tur)
+- Ego filtresi dinamik hale getirildi — her ruh halinde farklı düşünce stili
+- Prefrontal seçenekleri genişletildi — `sıcak_yanıt`, `sorgulayıcı_yanıt`, `yapıcı_yanıt`
+- GitHub Pages desteği ve README badge'leri eklendi
 
 ### v0.3.0 — 10 Yeni Modül
 - Prefrontal Cortex, Working Memory, Language Processor, Emotional Memory
