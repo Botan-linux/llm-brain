@@ -18,12 +18,6 @@ Model: `model.py` dosyasında `.env` override desteği mevcut. Hem Anthropic Mes
 | POST | /api/sleep | Uyku modu |
 | GET | /api/health | Canlılık kontrolü |
 
-## Docker
-- Base image: python:3.11-slim
-- Port: 10000 (Render free tier default)
-- Command: uvicorn api:app --host 0.0.0.0 --port 10000
-- Config: .env ile API key enjekte
-
 ## Dosya Yapısı
 ```
 llm-brain/

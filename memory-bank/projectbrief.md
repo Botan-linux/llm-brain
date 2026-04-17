@@ -7,8 +7,6 @@
 - Python 3.11+
 - LLM: Gemini (OpenAI-compatible API)
 - REST API: FastAPI + Uvicorn
-- Deploy: Docker + Render.com (free 512MB)
-- Keepalive: cron-job.com (2dk ping)
 - Config: .env ortam değişkenleri > config.json > varsayılan
 
 ## Sürüm

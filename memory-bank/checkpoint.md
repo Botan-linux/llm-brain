@@ -10,19 +10,16 @@
 
 ## Tamamlanan (Bu Oturum)
 - memory-bank sistemi kurulumu ve zenginleştirme
-- .z-ai/ dizini oluşturuldu (5 dosya: rules, quick-start, file-map, session-protocol, tokens)
+- .z-ai/ dizini oluşturuldu (6 dosya: rules, quick-start, START, tokens, file-map, session-protocol)
 - Obsidian referansları temizlendi, research/ silindi
 - KURAL 9: Token kullanım kuralı (GitHub push token gömme)
-- KURAL 10: "Oku ve Anla" sistemi (oturum değişimi + bağlam kaybı)
+- KURAL 10: "Oku ve Anla" sistemi
+- START.md: Tek giriş noktası (projenin %100'ü tek dosyada)
 - git credential.helper store ayarı (token kalıcı)
-- GitHub'a push başarılı (667d2da)
+- GitHub'a push başarılı
 
 ## Sonraki Adım
 - api.py (FastAPI REST API wrapper) yazılması
-- Dockerfile oluşturma
-- .env yönetimi
-- Render.com deploy
-- cron-job.com keepalive
 
 ## Aktif Dosyalar
 - `.z-ai/rules.md` (10 kural)
@@ -34,6 +31,4 @@
 - `memory-bank/activeContext.md`
 
 ## Bilinen Sorunlar
-- config.json LLM endpoint: `127.0.0.1:8045` (local proxy) → Render'da çalışmaz
 - api.py henüz yazılmadı
-- Dockerfile henüz yazılmadı
