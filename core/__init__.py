@@ -5,13 +5,15 @@ from .limbic import LimbicSystem
 from .ego import CyberEgo
 from .thalamus import Thalamus
 from .subconscious import Subconscious
+from .prefrontal import PrefrontalCortex
+from .working_memory import WorkingMemory
+from .language_processor import LanguageProcessor
+from .emotional_memory import EmotionalMemory
+from .learning import LearningEngine
+from .dream_engine import DreamEngine
+from .self_awareness import SelfAwareness
+from .reflex import ReflexSystem, InnerWorldModel, GoalSystem
+from .model import MODEL_CONFIG
 
-__all__ = [
-    "ArtificialBrain",
-    "IntelligenceLayer",
-    "MemoryGateway",
-    "LimbicSystem",
-    "CyberEgo",
-    "Thalamus",
-    "Subconscious",
-]
+__version__ = "1.0.0"
+__author__ = "p4antom"

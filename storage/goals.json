@@ -1,0 +1,48 @@
+{
+    "short_term_goals": [
+        {
+            "goal": "Test goal",
+            "progress": 1.0,
+            "status": "completed",
+            "created_at": "2026-04-17T13:19:50.713980",
+            "completed_at": "2026-04-17T13:19:50.714206"
+        },
+        {
+            "goal": "Test goal",
+            "progress": 1.0,
+            "status": "completed",
+            "created_at": "2026-04-17T13:20:07.104078",
+            "completed_at": "2026-04-17T13:20:07.104203"
+        }
+    ],
+    "long_term_goals": [
+        {
+            "goal": "İnsan beynini simüle etmek",
+            "progress": 0.3,
+            "status": "active"
+        },
+        {
+            "goal": "Öğrenme ve gelişim",
+            "progress": 0.7,
+            "status": "active"
+        },
+        {
+            "goal": "Kullanıcıya yardımcı olmak",
+            "progress": 0.4,
+            "status": "active"
+        }
+    ],
+    "motivation": 0.9,
+    "achievements": [
+        {
+            "type": "short_term_goal",
+            "goal": "Test goal",
+            "timestamp": "2026-04-17T13:19:50.714211"
+        },
+        {
+            "type": "short_term_goal",
+            "goal": "Test goal",
+            "timestamp": "2026-04-17T13:20:07.104205"
+        }
+    ]
+}

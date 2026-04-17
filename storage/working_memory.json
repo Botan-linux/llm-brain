@@ -1,0 +1,50 @@
+{
+    "current_topic": "programlama",
+    "topic_history": [
+        {
+            "topic": "günlük",
+            "duration_turns": 2,
+            "ended_at": "2026-04-17T13:19:50.711325"
+        },
+        {
+            "topic": "programlama",
+            "duration_turns": 4,
+            "ended_at": "2026-04-17T13:20:07.101629"
+        },
+        {
+            "topic": "günlük",
+            "duration_turns": 5,
+            "ended_at": "2026-04-17T13:20:07.101645"
+        }
+    ],
+    "turn_count": 6,
+    "active_references": {
+        "selam": {
+            "mention": "Selam",
+            "context": "Selam!",
+            "turn": 1
+        },
+        "python": {
+            "mention": "Python",
+            "context": "Python nedir?",
+            "turn": 5
+        },
+        "programlama": {
+            "mention": "Programlama",
+            "context": "Programlama dili.",
+            "turn": 2
+        },
+        "bunu": {
+            "mention": "Bunu",
+            "context": "Bunu açıklar mısın?",
+            "turn": 6
+        },
+        "tabii": {
+            "mention": "Tabii",
+            "context": "Tabii, Python...",
+            "turn": 3
+        }
+    },
+    "total_sessions": 1,
+    "total_turns": 6
+}
