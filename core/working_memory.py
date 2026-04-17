@@ -71,6 +71,10 @@ class WorkingMemory:
     def _reset_persistent(self):
         self.total_sessions = 1
         self.total_turns = 0
+        self.current_topic = None
+        self.topic_history = []
+        self.turn_count = 0
+        self.active_references = {}
 
     def _save(self):
         """Kalıcı verileri kaydet (sohbet geçmişi hariç)."""

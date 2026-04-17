@@ -82,8 +82,16 @@ class CyberEgo:
         for trait in self.personality_traits:
             self.personality_traits[trait] = round(max(0, min(1, self.personality_traits[trait])), 3)
 
-        # Kişiliği kalıcı kaydet
-        self._save_personality()
+        # Değişiklik olup olmadığını kontrol et — gereksiz disk yazımını önle
+        self._dirty = getattr(self, '_dirty', False)
+        if not self._dirty:
+            self._dirty = True
+
+    def save_personality_if_dirty(self):
+        """Sadece değişiklik varsa kişiliği kalıcı kaydet."""
+        if getattr(self, '_dirty', False):
+            self._save_personality()
+            self._dirty = False
 
     def filter_thought(self, prompt, raw_response, mood_state):
         """AI çıktısını insan benzeri kişilik ve mevcut ruh hali üzerinden işler."""

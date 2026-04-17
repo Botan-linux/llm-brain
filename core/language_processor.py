@@ -268,9 +268,18 @@ class LanguageProcessor:
 
         topic_scores = {}
         for topic, keywords in self.topic_keywords.items():
-            matches = words & set(keywords)
+            matches = 0
+            for keyword in keywords:
+                # Çok kelimeli anahtar kelimeler (ör: "yapay zeka") için alt string kontrolü
+                if ' ' in keyword:
+                    if keyword in text_lower:
+                        matches += 2  # Çok kelimeli eşleşme daha değerli
+                else:
+                    # Tek kelimeli: set intersection
+                    if keyword in words:
+                        matches += 1
             if matches:
-                topic_scores[topic] = len(matches)
+                topic_scores[topic] = matches
 
         if not topic_scores:
             return None

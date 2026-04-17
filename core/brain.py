@@ -147,7 +147,11 @@ class ArtificialBrain:
                 # Yüksek öncelikli reflex — cortex'i tamamen atla
                 self.state["energy"] -= 1
                 self.working_memory.add_exchange(stimulus_data, reflex_result["response"])
-                self.inner_world.update_perception(self.state)
+                self.inner_world.update_perception({
+                    "energy": self.state["energy"],
+                    "mood": self.limbic.current_mood,
+                    "emotions": self.limbic.emotional_states
+                })
                 return reflex_result["response"]
 
         # --- 2. DİL İŞLEME (Wernicke/Broca alanları) ---
@@ -217,11 +221,11 @@ class ArtificialBrain:
 
         # Prefrontal kararını bağlama ekle
         if decision.get("action") == "hızlı_yanıt":
-            full_context += "[Prefrontal Kararı]: Kısa ve öz yanıt ver. Gereksiz detaya girme.]\n"
+            full_context += "[Prefrontal Kararı]: Kısa ve öz yanıt ver. Gereksiz detaya girme.\n"
         elif decision.get("action") == "bekle_ve_düşün":
-            full_context += "[Prefrontal Kararı]: Derin düşünce modu. Önce düşün, sonra cevap ver.]\n"
+            full_context += "[Prefrontal Kararı]: Derin düşünce modu. Önce düşün, sonra cevap ver.\n"
         elif decision.get("action") == "öğrenme_odaklı":
-            full_context += "[Prefrontal Kararı]: Öğrenme fırsatı. Bilgiyi yapılandır.]\n"
+            full_context += "[Prefrontal Kararı]: Öğrenme fırsatı. Bilgiyi yapılandır.\n"
 
         if working_context:
             full_context += f"\n{working_context}\n"
@@ -285,6 +289,10 @@ class ArtificialBrain:
 
         # Kişilik evrimi (nöroplastisite)
         self.ego.evolve_personality(stimulus_data, {"tone": current_mood})
+
+        # Periyodik kişilik kaydet (her 5 tur'da bir)
+        if self.working_memory.turn_count % 5 == 0:
+            self.ego.save_personality_if_dirty()
 
         # --- 14. ENERJİ GÜNCELLEME ---
         energy_cost = 8 * intensity + lang_analysis["complexity"] * 5
@@ -444,6 +452,8 @@ class ArtificialBrain:
             self.goals.decay_motivation(rate=0.005)
         if hasattr(self, 'subconscious'):
             self.subconscious.stop()
+        if hasattr(self, 'ego'):
+            self.ego.save_personality_if_dirty()
 
 
 if __name__ == "__main__":

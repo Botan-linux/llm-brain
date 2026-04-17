@@ -159,7 +159,7 @@ class ReflexSystem:
         # 1. Yüksek öncelikli uyarılar önce kontrol edilir
         reflexes = sorted(
             list(self.natural_reflexes.items()) + 
-            [(k, {"triggers": [v["trigger"]], "responses": v["responses"], "priority": v["priority"] * emotion_multiplier})
+            [(k, {"triggers": [v["trigger"]], "responses": v["responses"], "priority": v["priority"]})
              for k, v in self.conditioned_reflexes.items()],
             key=lambda x: x[1]["priority"] * emotion_multiplier,
             reverse=True
