@@ -1,0 +1,48 @@
+{
+    "timestamp": "2026-04-16T14:22:15.991743",
+    "data": {
+        "type": "subconscious_insight",
+        "content": "Zeka katmanında bir tıkanıklık oluştu: 503 Server Error: Service Unavailable for url: http://127.0.0.1:8045/v1/chat/completions",
+        "connected_memories": [
+            {
+                "timestamp": "2026-04-14T15:10:17.653848",
+                "data": {
+                    "stimulus": "merhaab!",
+                    "response": "",
+                    "mood_state": "analytical",
+                    "attention_score": 0.5
+                },
+                "type": "permanent",
+                "metadata": {
+                    "weight": 0.8999999999999999,
+                    "access_count": 1,
+                    "last_access": "2026-04-14T15:10:17.653768",
+                    "created_at": "2026-04-14T15:10:17.653800"
+                }
+            },
+            {
+                "timestamp": "2026-04-14T15:10:59.722251",
+                "data": {
+                    "stimulus": "merhaba",
+                    "response": "",
+                    "mood_state": "analytical",
+                    "attention_score": 0.5
+                },
+                "type": "permanent",
+                "metadata": {
+                    "weight": 0.94,
+                    "access_count": 1,
+                    "last_access": "2026-04-14T15:10:59.722213",
+                    "created_at": "2026-04-14T15:10:59.722230"
+                }
+            }
+        ]
+    },
+    "type": "ephemeral",
+    "metadata": {
+        "weight": 1.0,
+        "access_count": 1,
+        "last_access": "2026-04-16T14:22:15.991704",
+        "created_at": "2026-04-16T14:22:15.991718"
+    }
+}

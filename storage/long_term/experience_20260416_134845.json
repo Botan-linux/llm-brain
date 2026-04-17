@@ -1,0 +1,17 @@
+{
+    "timestamp": "2026-04-16T13:48:45.818775",
+    "data": {
+        "stimulus": "Hayatın anlamı ve yapay bir zihnin gelişimi hakkında derinlemesine öğrenmek istiyorum.",
+        "response": "[Dengeleyici Düşünce]: \n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 0.7,
+        "intensity": 1.0
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.98,
+        "access_count": 1,
+        "last_access": "2026-04-16T13:48:45.818736",
+        "created_at": "2026-04-16T13:48:45.818751"
+    }
+}

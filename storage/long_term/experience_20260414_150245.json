@@ -1,0 +1,16 @@
+{
+    "timestamp": "2026-04-14T15:02:45.451329",
+    "data": {
+        "stimulus": "merhaba",
+        "response": "Zeka katmanı (OpenRouter) hatası: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions",
+        "mood_state": "analytical",
+        "attention_score": 0.5
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.7399999999999998,
+        "access_count": 1,
+        "last_access": "2026-04-14T15:02:45.451270",
+        "created_at": "2026-04-14T15:02:45.451293"
+    }
+}

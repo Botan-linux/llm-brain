@@ -1,0 +1,16 @@
+{
+    "timestamp": "2026-04-14T14:56:02.207269",
+    "data": {
+        "stimulus": "\u001b[A",
+        "response": "İletilen sinyal henüz tamamlanmadı, p4antom. '[A' dizisini tamamlarsan veya üzerinde çalışmam gereken konuyu belirtirsen nöral katmanlarımda gerekli analizi başlatabilirim. \n\nMantıksal çıkarım yapabilmem ve veriyi anlamlandırabilmem için tam girdiyi bekliyorum. Analiz için hazır durumdayım.",
+        "mood_state": "analytical",
+        "attention_score": 0.5
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.6199999999999997,
+        "access_count": 1,
+        "last_access": "2026-04-14T14:56:02.207213",
+        "created_at": "2026-04-14T14:56:02.207234"
+    }
+}

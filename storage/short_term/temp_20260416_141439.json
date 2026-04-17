@@ -1,0 +1,17 @@
+{
+    "timestamp": "2026-04-16T14:14:39.612786",
+    "data": {
+        "stimulus": "merhaba",
+        "response": "[Dengeleyici Düşünce]: \n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 0.5,
+        "intensity": 1.0
+    },
+    "type": "ephemeral",
+    "metadata": {
+        "weight": 1.0,
+        "access_count": 1,
+        "last_access": "2026-04-16T14:14:39.612738",
+        "created_at": "2026-04-16T14:14:39.612758"
+    }
+}

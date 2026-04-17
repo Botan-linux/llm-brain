@@ -1,0 +1,17 @@
+{
+    "timestamp": "2026-04-16T14:21:28.480600",
+    "data": {
+        "stimulus": "merhaba \u001b[D, nasılsın",
+        "response": "[Dengeleyici Düşünce]: Zihin boş bir yanıt dömdü.\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 0.5,
+        "intensity": 1.0
+    },
+    "type": "ephemeral",
+    "metadata": {
+        "weight": 1.0,
+        "access_count": 1,
+        "last_access": "2026-04-16T14:21:28.480564",
+        "created_at": "2026-04-16T14:21:28.480578"
+    }
+}

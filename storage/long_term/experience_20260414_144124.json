@@ -1,0 +1,15 @@
+{
+    "timestamp": "2026-04-14T14:41:24.695752",
+    "data": {
+        "stimulus": "merhaba",
+        "response": "",
+        "mood_state": "analytical"
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.5399999999999996,
+        "access_count": 1,
+        "last_access": "2026-04-14T14:41:24.695410",
+        "created_at": "2026-04-14T14:41:24.695427"
+    }
+}

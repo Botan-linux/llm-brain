@@ -1,0 +1,1 @@
+bu projenin amacı nedir bu proje günümüzde yapay zekaya dikkat edin "zeka" o zekaya bir beyin vericez insan beynini simüle edicez ve bu tetse kullanıcagım model settin.json.bak var testler yapıcaz amaç insna beyniin python,markdoen ve jsonla yeniden yapmak yapay ir beyin yapıcaz insan beyniini temel alıcak onun gibi çalışacak herşeyile yapay bir insna beyni zeka ise ai 
