@@ -38,3 +38,38 @@
 
 **Sonraki Adım:**
 - api.py yazılması
+
+---
+
+## Checkpoint 2 — 2026-04-18 22:52
+
+**Durum:** TAMAMLANDI — Hafıza yedekleme sistemi kurulumu
+**Son GitHub push:** c13fd48 (main) + z-memory-backup b924500
+
+**Tamamlanan:**
+- z-memory-backup private repo oluşturuldu
+- 15 dosya yedeklendi
+- KURAL 11: Otomatik yedekleme
+- KURAL 12: Checkpoint geçmişi
+- checkpoint-history.md oluşturuldu
+
+**Sonraki Adım:**
+- api.py yazılması
+
+---
+
+## Checkpoint 3 — 2026-04-18 23:03
+
+**Durum:** TAMAMLANDI — api.py REST API + LLM entegrasyonu
+**Son GitHub push:** ba02976 (main)
+
+**Tamamlanan:**
+- api.py yazıldı (FastAPI + 9 endpoint)
+- LLM provider: Z.ai SDK backend (glm-4-plus)
+- intelligence.py tamamen yeniden yazıldı (Z.ai SDK + OpenAI format)
+- config.json Groq olarak ayarlandı (fallback)
+- Beyin artık gerçek LLM yanıtları üretiyor
+- Tüm endpoint'ler test edildi
+
+**Sonraki Adım:**
+- Production deployment

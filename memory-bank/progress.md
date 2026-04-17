@@ -16,6 +16,7 @@
 | 2026-04-18 | START.md | Tek giriş noktası — projenin %100'ü tek dosyada |
 | 2026-04-18 | Hafıza yedekleme sistemi | z-memory-backup private repo + KURAL 11/12 + checkpoint-history.md |
 | 2026-04-18 | REST API (api.py) | FastAPI + 9 endpoint + CORS + lifespan + test edildi |
+| 2026-04-18 | Z.ai SDK entegrasyonu | intelligence.py yeniden yazıldı, Z.ai backend ile canlı LLM (glm-4-plus) |
 
 ## Devam Eden
 | Görev | Öncelik | Bağımlılık |

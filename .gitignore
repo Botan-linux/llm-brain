@@ -26,6 +26,7 @@ Thumbs.db
 
 # Model configs (sensitive)
 core/model.py
+config.json
 
 # AI kuralları (gizli, projeye özgü)
 .z-ai/
