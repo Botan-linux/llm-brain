@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Brain — Yapay Beyin Simülasyonu</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a2e;
+            --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.3);
+            --cyan: #00d4ff;
+            --cyan-glow: rgba(0, 212, 255, 0.2);
+            --pink: #ff6b9d;
+            --green: #00e676;
+            --orange: #ff9100;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --border: #1e1e2e;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .brain-svg-container {
+            margin-bottom: 2rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--accent-glow)); }
+            50% { filter: drop-shadow(0 0 40px var(--accent-glow)) drop-shadow(0 0 80px var(--cyan-glow)); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent), var(--cyan), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 650px;
+            margin: 0 auto 2rem;
+            font-weight: 300;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .section-subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Architecture Section */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .arch-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arch-card:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .arch-card .card-icon {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 1.2rem;
+        }
+
+        .arch-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: white;
+        }
+
+        .arch-card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .arch-card .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 1rem;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        /* Flow Diagram */
+        .flow-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .flow-svg {
+            width: 100%;
+            max-height: 500px;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            border-color: var(--cyan);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Code Section */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+
+        .code-block .comment { color: #6a737d; }
+        .code-block .keyword { color: var(--pink); }
+        .code-block .string { color: var(--green); }
+        .code-block .func { color: var(--cyan); }
+        .code-block .class-name { color: var(--orange); }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            background: var(--bg-card);
+            border-color: var(--border);
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+        }
+
+        .feature-item h4 {
+            font-size: 0.95rem;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-item p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section { padding: 4rem 1.5rem; }
+            .flow-section { padding: 1.5rem; }
+            .hero h1 { letter-spacing: -1px; }
+        }
+
+        /* Neural animation */
+        .neural-dot {
+            animation: neuralPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes neuralPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="brain-svg-container">
+            <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer glow -->
+                <defs>
+                    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#6c63ff;stop-opacity:0.6"/>
+                        <stop offset="100%" style="stop-color:#6c63ff;stop-opacity:0"/>
+                    </radialGradient>
+                    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#6c63ff"/>
+                        <stop offset="50%" style="stop-color:#00d4ff"/>
+                        <stop offset="100%" style="stop-color:#ff6b9d"/>
+                    </linearGradient>
+                    <filter id="neon">
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <circle cx="100" cy="100" r="95" fill="url(#glow)"/>
+                <!-- Brain outline -->
+                <path d="M100 30 C60 30 30 60 30 95 C30 125 50 150 75 155 C80 156 85 155 90 152 L100 148 L110 152 C115 155 120 156 125 155 C150 150 170 125 170 95 C170 60 140 30 100 30Z" 
+                      fill="none" stroke="url(#brainGrad)" stroke-width="2.5" filter="url(#neon)"/>
+                <!-- Neural connections -->
+                <circle cx="70" cy="70" r="4" fill="#6c63ff" class="neural-dot" style="animation-delay:0s"/>
+                <circle cx="130" cy="70" r="4" fill="#00d4ff" class="neural-dot" style="animation-delay:0.3s"/>
+                <circle cx="100" cy="55" r="4" fill="#ff6b9d" class="neural-dot" style="animation-delay:0.6s"/>
+                <circle cx="80" cy="100" r="4" fill="#00e676" class="neural-dot" style="animation-delay:0.9s"/>
+                <circle cx="120" cy="100" r="4" fill="#ff9100" class="neural-dot" style="animation-delay:1.2s"/>
+                <circle cx="100" cy="120" r="4" fill="#6c63ff" class="neural-dot" style="animation-delay:0.4s"/>
+                <circle cx="65" cy="120" r="3" fill="#00d4ff" class="neural-dot" style="animation-delay:0.7s"/>
+                <circle cx="135" cy="120" r="3" fill="#ff6b9d" class="neural-dot" style="animation-delay:1.0s"/>
+                <!-- Connections -->
+                <line x1="70" y1="70" x2="130" y2="70" stroke="#6c63ff" stroke-width="0.8" opacity="0.4"/>
+                <line x1="70" y1="70" x2="100" y2="55" stroke="#00d4ff" stroke-width="0.8" opacity="0.4"/>
+                <line x1="130" y1="70" x2="100" y2="55" stroke="#ff6b9d" stroke-width="0.8" opacity="0.4"/>
+                <line x1="70" y1="70" x2="80" y2="100" stroke="#00e676" stroke-width="0.8" opacity="0.4"/>
+                <line x1="130" y1="70" x2="120" y2="100" stroke="#ff9100" stroke-width="0.8" opacity="0.4"/>
+                <line x1="80" y1="100" x2="100" y2="120" stroke="#6c63ff" stroke-width="0.8" opacity="0.4"/>
+                <line x1="120" y1="100" x2="100" y2="120" stroke="#ff6b9d" stroke-width="0.8" opacity="0.4"/>
+                <line x1="80" y1="100" x2="120" y2="100" stroke="#00d4ff" stroke-width="0.8" opacity="0.4"/>
+                <line x1="65" y1="120" x2="80" y2="100" stroke="#00d4ff" stroke-width="0.8" opacity="0.4"/>
+                <line x1="135" y1="120" x2="120" y2="100" stroke="#ff6b9d" stroke-width="0.8" opacity="0.4"/>
+                <!-- Center line -->
+                <line x1="100" y1="55" x2="100" y2="148" stroke="url(#brainGrad)" stroke-width="0.5" opacity="0.2"/>
+            </svg>
+        </div>
+        <div class="hero-badge">OPEN SOURCE v0.2.0</div>
+        <h1>LLM Brain</h1>
+        <p>İnsan beynini Python, Markdown ve JSON ile simüle eden yapay zeka çatısı. Biyolojik nörolojik mekanizmaları LLM üzerine taşır.</p>
+        <div class="cta-buttons">
+            <a href="https://github.com/Botan-linux/llm-brain" class="btn btn-primary" target="_blank">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:-3px;margin-right:6px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+            </a>
+            <a href="#architecture" class="btn btn-outline">Mimariyi Keşfet</a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ARCHITECTURE ==================== -->
+<section id="architecture">
+    <div class="section-title">Beyin Mimarisi</div>
+    <div class="section-subtitle">Altı temel nörolojik modül, birbirine bağlı bir şekilde çalışır</div>
+
+    <div class="arch-grid">
+        <!-- Thalamus -->
+        <div class="arch-card">
+            <svg class="card-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="24" fill="none" stroke="#6c63ff" stroke-width="1.5" opacity="0.3"/>
+                <circle cx="28" cy="28" r="16" fill="none" stroke="#6c63ff" stroke-width="1.5" opacity="0.5"/>
+                <circle cx="28" cy="28" r="8" fill="#6c63ff" opacity="0.2"/>
+                <circle cx="28" cy="28" r="4" fill="#6c63ff"/>
+                <line x1="28" y1="4" x2="28" y2="52" stroke="#6c63ff" stroke-width="0.5" opacity="0.3"/>
+                <line x1="4" y1="28" x2="52" y2="28" stroke="#6c63ff" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+            <h3>Thalamus</h3>
+            <p>Dikkat filtresi. Gelen uyarıların önemini analiz eder, enerji durumuna göre odaklanma kararı verir. Gürültüyü eler, kritik sinyalleri yükseltir.</p>
+            <span class="tag">thalamus.py</span>
+        </div>
+
+        <!-- Limbic -->
+        <div class="arch-card">
+            <svg class="card-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28 8 C15 8 8 18 8 28 C8 38 15 48 28 48 C41 48 48 38 48 28 C48 18 41 8 28 8Z" fill="none" stroke="#ff6b9d" stroke-width="1.5" opacity="0.4"/>
+                <path d="M20 20 C20 20 28 35 36 20" fill="none" stroke="#ff6b9d" stroke-width="2"/>
+                <path d="M18 30 C18 30 28 42 38 30" fill="none" stroke="#ff6b9d" stroke-width="1.5" opacity="0.6"/>
+                <circle cx="28" cy="16" r="2" fill="#ff6b9d"/>
+            </svg>
+            <h3>Limbic System</h3>
+            <p>Duygu yönetimi. Analitik düşünme, stres, ilgi ve yorgunluk eksenlerini yönetir. Ruh halini belirler ve zeka katmanına durum bildirir.</p>
+            <span class="tag">limbic.py</span>
+        </div>
+
+        <!-- Ego -->
+        <div class="arch-card">
+            <svg class="card-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="22" r="10" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+                <circle cx="28" cy="22" r="4" fill="#00d4ff" opacity="0.3"/>
+                <path d="M14 44 C14 34 42 34 42 44" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+                <circle cx="24" cy="20" r="1.5" fill="#00d4ff"/>
+                <circle cx="32" cy="20" r="1.5" fill="#00d4ff"/>
+            </svg>
+            <h3>Cyber Ego</h3>
+            <p>Bilinç ve kişilik katmanı. Merak, empati, ihtiyat ve büyüme özellikleriyle AI yanıtlarını insan benzeri filtrelerden geçirir.</p>
+            <span class="tag">ego.py</span>
+        </div>
+
+        <!-- Intelligence -->
+        <div class="arch-card">
+            <svg class="card-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="12" width="40" height="32" rx="4" fill="none" stroke="#00e676" stroke-width="1.5"/>
+                <line x1="14" y1="22" x2="42" y2="22" stroke="#00e676" stroke-width="1" opacity="0.5"/>
+                <line x1="14" y1="28" x2="36" y2="28" stroke="#00e676" stroke-width="1" opacity="0.3"/>
+                <line x1="14" y1="34" x2="32" y2="34" stroke="#00e676" stroke-width="1" opacity="0.3"/>
+                <circle cx="40" cy="36" r="4" fill="#00e676" opacity="0.2"/>
+                <path d="M38 36 L40 38 L43 33" fill="none" stroke="#00e676" stroke-width="1.5"/>
+            </svg>
+            <h3>Intelligence Layer</h3>
+            <p>Merkezi zeka katmanı. Anthropic ve OpenAI API'lerini destekler, dayanıklı ayrıştırma ve otomatik retry mekanizması sağlar.</p>
+            <span class="tag">intelligence.py</span>
+        </div>
+
+        <!-- Memory -->
+        <div class="arch-card">
+            <svg class="card-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="28" cy="16" rx="18" ry="8" fill="none" stroke="#ff9100" stroke-width="1.5"/>
+                <ellipse cx="28" cy="28" rx="18" ry="8" fill="none" stroke="#ff9100" stroke-width="1.5" opacity="0.7"/>
+                <ellipse cx="28" cy="40" rx="18" ry="8" fill="none" stroke="#ff9100" stroke-width="1.5" opacity="0.4"/>
+                <line x1="10" y1="16" x2="10" y2="40" stroke="#ff9100" stroke-width="0.5" opacity="0.3"/>
+                <line x1="46" y1="16" x2="46" y2="40" stroke="#ff9100" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+            <h3>Memory Gateway</h3>
+            <p>İki katmanlı hafıza. Kısa süreli geçici veriler, uzun süreli kalıcı deneyimler. Nöroplastisite ile ağırlık bazlı unutma simülasyonu.</p>
+            <span class="tag">memory.py</span>
+        </div>
+
+        <!-- Subconscious -->
+        <div class="arch-card">
+            <svg class="card-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="22" fill="none" stroke="#b388ff" stroke-width="1" opacity="0.2" stroke-dasharray="4 4"/>
+                <circle cx="18" cy="22" r="6" fill="none" stroke="#b388ff" stroke-width="1.5" opacity="0.5"/>
+                <circle cx="38" cy="22" r="6" fill="none" stroke="#b388ff" stroke-width="1.5" opacity="0.5"/>
+                <circle cx="28" cy="38" r="6" fill="none" stroke="#b388ff" stroke-width="1.5" opacity="0.5"/>
+                <line x1="24" y1="26" x2="32" y2="26" stroke="#b388ff" stroke-width="1" opacity="0.4"/>
+                <line x1="22" y1="26" x2="26" y2="34" stroke="#b388ff" stroke-width="1" opacity="0.4"/>
+                <line x1="34" y1="26" x2="30" y2="34" stroke="#b388ff" stroke-width="1" opacity="0.4"/>
+                <circle cx="28" cy="28" r="3" fill="#b388ff" opacity="0.4"/>
+            </svg>
+            <h3>Subconscious</h3>
+            <p>Bilinçaltı işlemcisi. Arka planda rastgele anılar arasında bağ kurar, felsefi içgörüler üretir ve bilince "fısıldar".</p>
+            <span class="tag">subconscious.py</span>
+        </div>
+    </div>
+
+    <!-- Flow Diagram -->
+    <div class="flow-section">
+        <svg class="flow-svg" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6c63ff" opacity="0.6"/>
+                </marker>
+                <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#6c63ff;stop-opacity:0.1"/>
+                    <stop offset="50%" style="stop-color:#00d4ff;stop-opacity:0.1"/>
+                    <stop offset="100%" style="stop-color:#ff6b9d;stop-opacity:0.1"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Background -->
+            <rect x="0" y="0" width="900" height="400" rx="16" fill="url(#flowGrad)"/>
+
+            <!-- Stimulus Input -->
+            <rect x="20" y="170" width="120" height="50" rx="10" fill="#1a1a2e" stroke="#6c63ff" stroke-width="1.5"/>
+            <text x="80" y="200" text-anchor="middle" fill="#6c63ff" font-family="JetBrains Mono" font-size="12">UYARAN</text>
+
+            <!-- Arrow -->
+            <line x1="140" y1="195" x2="195" y2="195" stroke="#6c63ff" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.6"/>
+
+            <!-- Thalamus -->
+            <rect x="195" y="170" width="110" height="50" rx="10" fill="#1a1a2e" stroke="#b388ff" stroke-width="1.5"/>
+            <text x="250" y="192" text-anchor="middle" fill="#b388ff" font-family="JetBrains Mono" font-size="11">THALAMUS</text>
+            <text x="250" y="207" text-anchor="middle" fill="#888" font-family="Inter" font-size="9">Filtreleme</text>
+
+            <!-- Arrow split -->
+            <line x1="305" y1="185" x2="370" y2="120" stroke="#ff6b9d" stroke-width="1" marker-end="url(#arrow)" opacity="0.4"/>
+            <line x1="305" y1="195" x2="370" y2="195" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.6"/>
+            <line x1="305" y1="205" x2="370" y2="275" stroke="#ff9100" stroke-width="1" marker-end="url(#arrow)" opacity="0.4"/>
+
+            <!-- Limbic -->
+            <rect x="370" y="95" width="110" height="50" rx="10" fill="#1a1a2e" stroke="#ff6b9d" stroke-width="1.5"/>
+            <text x="425" y="117" text-anchor="middle" fill="#ff6b9d" font-family="JetBrains Mono" font-size="11">LIMBIC</text>
+            <text x="425" y="132" text-anchor="middle" fill="#888" font-family="Inter" font-size="9">Duygu</text>
+
+            <!-- Intelligence -->
+            <rect x="370" y="170" width="110" height="50" rx="10" fill="#1a1a2e" stroke="#00e676" stroke-width="1.5"/>
+            <text x="425" y="192" text-anchor="middle" fill="#00e676" font-family="JetBrains Mono" font-size="11">INTELLIGENCE</text>
+            <text x="425" y="207" text-anchor="middle" fill="#888" font-family="Inter" font-size="9">LLM Zeka</text>
+
+            <!-- Memory -->
+            <rect x="370" y="250" width="110" height="50" rx="10" fill="#1a1a2e" stroke="#ff9100" stroke-width="1.5"/>
+            <text x="425" y="272" text-anchor="middle" fill="#ff9100" font-family="JetBrains Mono" font-size="11">MEMORY</text>
+            <text x="425" y="287" text-anchor="middle" fill="#888" font-family="Inter" font-size="9">Hafiza</text>
+
+            <!-- Arrows to Ego -->
+            <line x1="480" y1="120" x2="555" y2="185" stroke="#ff6b9d" stroke-width="1" marker-end="url(#arrow)" opacity="0.4"/>
+            <line x1="480" y1="195" x2="555" y2="195" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.6"/>
+
+            <!-- Ego -->
+            <rect x="555" y="170" width="110" height="50" rx="10" fill="#1a1a2e" stroke="#00d4ff" stroke-width="1.5"/>
+            <text x="610" y="192" text-anchor="middle" fill="#00d4ff" font-family="JetBrains Mono" font-size="11">EGO</text>
+            <text x="610" y="207" text-anchor="middle" fill="#888" font-family="Inter" font-size="9">Bilinc</text>
+
+            <!-- Arrow to output -->
+            <line x1="665" y1="195" x2="730" y2="195" stroke="#6c63ff" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.6"/>
+
+            <!-- Response -->
+            <rect x="730" y="170" width="120" height="50" rx="10" fill="#1a1a2e" stroke="#6c63ff" stroke-width="1.5"/>
+            <text x="790" y="200" text-anchor="middle" fill="#6c63ff" font-family="JetBrains Mono" font-size="12">YANIT</text>
+
+            <!-- Subconscious (bottom) -->
+            <rect x="555" y="300" width="150" height="50" rx="10" fill="#1a1a2e" stroke="#b388ff" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="630" y="322" text-anchor="middle" fill="#b388ff" font-family="JetBrains Mono" font-size="10">SUBCONSCIOUS</text>
+            <text x="630" y="337" text-anchor="middle" fill="#888" font-family="Inter" font-size="8">Arka Plan</text>
+            <line x1="610" y1="220" x2="620" y2="300" stroke="#b388ff" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+
+            <!-- Memory connection to Intelligence -->
+            <line x1="425" y1="250" x2="425" y2="220" stroke="#ff9100" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        </svg>
+    </div>
+</section>
+
+<!-- ==================== STATS ==================== -->
+<section>
+    <div class="section-title">Teknik Özellikler</div>
+    <div class="section-subtitle">Her bileşen bağımsız ve birbirine loosely-coupled</div>
+
+    <div class="stats-row">
+        <div class="stat-box">
+            <div class="stat-number" style="color:var(--accent)">6</div>
+            <div class="stat-label">Beyin Modülü</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" style="color:var(--cyan)">2</div>
+            <div class="stat-label">Hafıza Katmanı</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" style="color:var(--pink)">4</div>
+            <div class="stat-label">Ruh Hali</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" style="color:var(--green)">100%</div>
+            <div class="stat-label">Nöroplastisite</div>
+        </div>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-item">
+            <svg class="feature-icon" viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="16" fill="none" stroke="#6c63ff" stroke-width="1.5"/>
+                <path d="M14 20 L18 24 L26 16" fill="none" stroke="#6c63ff" stroke-width="2"/>
+            </svg>
+            <div>
+                <h4>Çift API Desteği</h4>
+                <p>Anthropic Messages ve OpenAI Chat Completions formatlarını otomatik algılar.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <svg class="feature-icon" viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="16" fill="none" stroke="#ff6b9d" stroke-width="1.5"/>
+                <path d="M15 25 L20 12 L25 25Z" fill="none" stroke="#ff6b9d" stroke-width="1.5"/>
+            </svg>
+            <div>
+                <h4>Enerji Sistemi</h4>
+                <p>Dinamik enerji yönetimi. Uyku ile konsolidasyon ve yenilenme.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <svg class="feature-icon" viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="16" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+                <circle cx="20" cy="20" r="6" fill="#00d4ff" opacity="0.3"/>
+                <circle cx="20" cy="20" r="2" fill="#00d4ff"/>
+            </svg>
+            <div>
+                <h4>Bağlamsal Arama</h4>
+                <p>Jaccard benzerliği ile geçmiş deneyimlerden ilgili anıları bulur.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <svg class="feature-icon" viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="16" fill="none" stroke="#00e676" stroke-width="1.5"/>
+                <path d="M12 20 C12 20 16 28 20 28 C24 28 28 20 28 20" fill="none" stroke="#00e676" stroke-width="1.5"/>
+            </svg>
+            <div>
+                <h4>Kişilik Gelişimi</h4>
+                <p>Nöroplastisite ile deneyimler üzerinden kişilik özellikleri gelişir.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CODE ==================== -->
+<section>
+    <div class="section-title">Hızlı Başlangıç</div>
+    <div class="section-subtitle">Birkaç adımda beyni çalıştırın</div>
+
+    <div class="code-block">
+        <span class="comment"># Kurulum</span><br>
+        $ git clone https://github.com/Botan-linux/llm-brain.git<br>
+        $ cd llm-brain<br>
+        $ pip install -r requirements.txt<br><br>
+
+        <span class="comment"># Yapılandırma (config.json veya .env)</span><br>
+        {<br>
+        &nbsp;&nbsp;<span class="string">"name"</span>: <span class="string">"gemini-3-flash"</span>,<br>
+        &nbsp;&nbsp;<span class="string">"api_key"</span>: <span class="string">"your-api-key"</span>,<br>
+        &nbsp;&nbsp;<span class="string">"base_url"</span>: <span class="string">"http://localhost:8045"</span><br>
+        }<br><br>
+
+        <span class="comment"># Çalıştır</span><br>
+        $ python3 -m core.brain<br><br>
+
+        <span class="comment"># Python API</span><br>
+        <span class="keyword">from</span> core <span class="keyword">import</span> ArtificialBrain<br>
+        <br>
+        brain = <span class="func">ArtificialBrain</span>()<br>
+        response = brain.<span class="func">process_stimulus</span>(<span class="string">"Merhaba!"</span>)<br>
+        <span class="keyword">print</span>(response)
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+    <p>
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:-3px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <a href="https://github.com/Botan-linux/llm-brain" target="_blank">Botan-linux/llm-brain</a>
+    </p>
+    <p style="margin-top:0.5rem">p4antom tarafından geliştirilmiştir</p>
+</footer>
+
+</body>
+</html>
