@@ -15,13 +15,15 @@
 | 2026-04-18 | GitHub push | Commit b8edd2a pushlandı |
 | 2026-04-18 | START.md | Tek giriş noktası — projenin %100'ü tek dosyada |
 | 2026-04-18 | Hafıza yedekleme sistemi | z-memory-backup private repo + KURAL 11/12 + checkpoint-history.md |
+| 2026-04-18 | REST API (api.py) | FastAPI + 9 endpoint + CORS + lifespan + test edildi |
 
 ## Devam Eden
 | Görev | Öncelik | Bağımlılık |
 |-------|---------|------------|
-| REST API (api.py) | Yüksek | Yok |
+| LLM API key ayarlama | Yüksek | config.json veya .env |
 
 ## İleride Planlanan
 | Ne | Detay |
 |----|-------|
-| GitHub push | Yeni değişiklikler olunca |
+| Production deployment | Docker + environment variables |
+| Frontend entegrasyonu | Web arayüzü veya mobil uygulama |

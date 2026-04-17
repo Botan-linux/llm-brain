@@ -1,6 +1,27 @@
 {
-    "memories": [],
-    "emotional_biases": {},
-    "total_encoded": 0,
-    "dominant_emotion": null
+    "memories": [
+        {
+            "id": 0,
+            "event": "merhaba",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "günlük",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:02:00.016277"
+        }
+    ],
+    "emotional_biases": {
+        "günlük": {
+            "positive_hits": 0,
+            "negative_hits": 0,
+            "total": 1,
+            "avg_valence": 0.0
+        }
+    },
+    "total_encoded": 1,
+    "dominant_emotion": "nötr"
 }

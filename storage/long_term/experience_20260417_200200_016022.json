@@ -1,0 +1,19 @@
+{
+    "timestamp": "2026-04-17T20:02:00.016059",
+    "data": {
+        "stimulus": "merhaba",
+        "response": "[Analitik Düşünce]: Zeka katmanında bir tıkanıklık oluştu: Bağlantı hatası - LLM sunucusu ulaşılamıyor (3 başarısız deneme)\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 0.5,
+        "intensity": 1.0,
+        "intent": "selamlama",
+        "topic": "günlük"
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.98,
+        "access_count": 1,
+        "last_access": "2026-04-17T20:02:00.016046",
+        "created_at": "2026-04-17T20:02:00.016050"
+    }
+}

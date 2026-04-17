@@ -21,3 +21,20 @@
 
 **Sonraki Adım:**
 - api.py (FastAPI REST API wrapper) yazılması
+
+---
+
+## Checkpoint 2 — 2026-04-18 22:52
+
+**Durum:** TAMAMLANDI — Hafıza yedekleme sistemi kurulumu
+**Son GitHub push:** c13fd48 (main) + z-memory-backup b924500
+
+**Tamamlanan:**
+- z-memory-backup private repo oluşturuldu
+- 15 dosya yedeklendi
+- KURAL 11: Otomatik yedekleme
+- KURAL 12: Checkpoint geçmişi
+- checkpoint-history.md oluşturuldu
+
+**Sonraki Adım:**
+- api.py yazılması

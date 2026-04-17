@@ -30,16 +30,16 @@
         },
         {
             "goal": "Öğrenme ve gelişim",
-            "progress": 0.8,
+            "progress": 0.82,
             "status": "active"
         },
         {
             "goal": "Kullanıcıya yardımcı olmak",
-            "progress": 0.4,
+            "progress": 0.41,
             "status": "active"
         }
     ],
-    "motivation": 0.975,
+    "motivation": 0.96,
     "achievements": [
         {
             "type": "short_term_goal",

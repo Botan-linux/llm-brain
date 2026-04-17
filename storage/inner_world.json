@@ -1,5 +1,17 @@
 {
-    "state_history": [],
-    "session_start": "2026-04-17T14:29:09.416502",
-    "total_sessions": 6
+    "state_history": [
+        {
+            "energy": 91.5,
+            "mood": "analytical",
+            "emotions": {
+                "analytical": 0.7,
+                "stress": 0.05,
+                "interest": 0.55,
+                "fatigue": 0
+            },
+            "timestamp": "2026-04-17T20:02:00.016760"
+        }
+    ],
+    "session_start": "2026-04-17T20:02:00.100771",
+    "total_sessions": 7
 }

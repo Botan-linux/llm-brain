@@ -1,34 +1,40 @@
 # Checkpoint
 
 ## Tarih: 2026-04-18
-## Saat: 22:52
+## Saat: 23:03
 
 ## Durum
-- Son çalışan görev: Hafıza yedekleme sistemi kurulumu
+- Son çalışan görev: api.py REST API geliştirme
 - Durumu: TAMAMLANDI
-- Son GitHub push: c13fd48 (main) + z-memory-backup b924500
+- Son GitHub push: (push yapılacak)
 
 ## Tamamlanan (Bu Oturum)
-- z-memory-backup private repo oluşturuldu (GitHub API ile)
-- 15 dosya yedeklendi (.z-ai/ + memory-bank/ + sessions/)
-- KURAL 11: Otomatik yedekleme (her llm-brain push'ından sonra)
-- KURAL 12: Checkpoint geçmişi (zaman makinesi)
-- checkpoint-history.md oluşturuldu (1. checkpoint kaydedildi)
-- tokens.md'ye z-memory-backup repo bilgisi eklendi
-- START.md güncellendi (12 kural + yedekleme bilgisi)
-- llm-brain: c13fd48 push
-- z-memory-backup: b924500 push
+- api.py yazıldı — FastAPI + uvicorn + pydantic
+- 8 endpoint tanımlandı ve test edildi:
+  - POST /api/chat — Mesaj → Yanıt (beyin pipeline'ı çalışır)
+  - POST /api/sleep — Uyku modu (konsolidasyon)
+  - GET /api/status — Beyin durumu (JSON)
+  - GET /api/health — Canlılık kontrolü
+  - GET /api/goals — Hedef durumu
+  - GET /api/identity — Öz-farkındalık (kimim?)
+  - GET /api/memories — Hafıza istatistikleri
+  - POST /api/memories/search — Anı arama
+  - GET /api/config — LLM yapılandırması (maskelenmiş)
+- CORS middleware eklendi
+- Lifespan (başlangıç/bitiş) yönetimi
+- requirements.txt güncellendi (fastapi, uvicorn, pydantic)
+- Tüm endpoint'ler test edildi ve çalışıyor
 
 ## Sonraki Adım
-- api.py (FastAPI REST API wrapper) yazılması
+- LLM API key ayarlama (config.json veya .env)
+- Swagger UI erişimi: http://host:8000/docs
+- Production deployment
 
 ## Aktif Dosyalar
-- `.z-ai/rules.md` (12 kural)
-- `.z-ai/tokens.md` (GitHub token + yedekleme repo bilgisi)
-- `.z-ai/START.md` (güncellendi)
-- `memory-bank/checkpoint.md`
-- `memory-bank/checkpoint-history.md` (YENİ)
-- `memory-bank/activeContext.md`
+- `api.py` (YENİ — ana API dosyası)
+- `requirements.txt` (güncellendi)
+- `core/brain.py` (değişiklik yok, wrapper olarak kullanılıyor)
 
 ## Bilinen Sorunlar
-- api.py henüz yazılmadı
+- LLM API key henüz ayarlanmadı (chat endpoint'i LLM sunucusu olmadan çalışamaz)
+- `python-dotenv` requirements.txt'te ama .env dosyası yok
