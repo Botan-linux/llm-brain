@@ -205,3 +205,103 @@ class MemoryGateway:
             "short_term": short_term_count,
             "total": long_term_count + short_term_count
         }
+
+    # === ZAMANSAL HAFIZA (Temporal Memory) ===
+
+    def search_by_time_range(self, hours_ago=24, limit=5):
+        """
+        Zamansal aralıkta hafıza ara — "Son 24 saatte ne konuştuğumuz..."
+
+        İnsan beyni zamansal bağlamla hatırlar:
+        - "Dün konuştuğumuz konu..."
+        - "Geçen hafta sorduğun..."
+        - "İlk tanıştığımızda..."
+
+        Args:
+            hours_ago: Kaç saat öncesine kadar ara
+            limit: Maksimum sonuç sayısı
+
+        Returns:
+            list: Zaman aralığındaki anılar
+        """
+        from datetime import timedelta
+
+        cutoff = datetime.now() - timedelta(hours=hours_ago)
+        results = []
+
+        for folder in [self.long_term_path, self.short_term_path]:
+            if not os.path.exists(folder):
+                continue
+            for filename in os.listdir(folder):
+                if not filename.endswith(".json"):
+                    continue
+                path = os.path.join(folder, filename)
+                try:
+                    with open(path, 'r', encoding='utf-8') as f:
+                        content = json.load(f)
+                    created = content.get("metadata", {}).get("created_at", "")
+                    if created:
+                        mem_time = datetime.fromisoformat(created)
+                        if mem_time >= cutoff:
+                            results.append({
+                                "data": content.get("data", {}),
+                                "metadata": content.get("metadata", {}),
+                                "age_hours": (datetime.now() - mem_time).total_seconds() / 3600
+                            })
+                except Exception:
+                    continue
+
+        # En yeni başa
+        results.sort(key=lambda x: x.get("age_hours", 999))
+        return results[:limit]
+
+    def get_temporal_context(self, query_hints=None):
+        """
+        Zamansal bağlam döndürür — konuşma için zaman bilgisi.
+
+        Returns:
+            str: Zamansal bağlam açıklaması
+        """
+        now = datetime.now()
+        hour = now.hour
+
+        # Günün zamanı
+        if 6 <= hour < 12:
+            time_of_day = "sabah"
+        elif 12 <= hour < 18:
+            time_of_day = "öğleden sonra"
+        elif 18 <= hour < 22:
+            time_of_day = "akşam"
+        else:
+            time_of_day = "gece"
+
+        # Son konuşma (en yeni anı)
+        recent = self.search_by_time_range(hours_ago=1, limit=1)
+        if recent:
+            last_time = recent[0].get("age_hours", 0)
+            if last_time < 0.1:
+                recency = "Az önce konuşmuştuk."
+            elif last_time < 1:
+                recency = f"Yaklaşık {int(last_time * 60)} dakika önce konuşmuştuk."
+            elif last_time < 24:
+                recency = f"Bugün daha önce de konuşmuştuk."
+            else:
+                recency = "Uzun zamandır konuşmuyorduk."
+        else:
+            recency = "Bu oturumda ilk konuşmamız."
+
+        context = (
+            f"[Zamansal Bağlam]: Şu an {time_of_day}. {recency} "
+            f"Tarih: {now.strftime('%d.%m.%Y')}."
+        )
+
+        # Konu bazlı geçmiş
+        if query_hints:
+            day_memories = self.search_by_time_range(hours_ago=24, limit=3)
+            if day_memories:
+                context += "\n[Bugünkü Konuşmalar]:"
+                for mem in day_memories[:3]:
+                    stimulus = mem.get("data", {}).get("stimulus", "")[:60]
+                    context += f"\n- {stimulus}..."
+
+        return context

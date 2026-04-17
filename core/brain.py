@@ -20,6 +20,9 @@ from core.dream_engine import DreamEngine
 from core.self_awareness import SelfAwareness
 from core.reflex import ReflexSystem, InnerWorldModel, GoalSystem
 from core.subconscious import Subconscious
+from core.creativity import CreativityModule
+from core.social_cognition import SocialCognition
+from core.intuition import IntuitionModule
 
 
 class ArtificialBrain:
@@ -76,6 +79,11 @@ class ArtificialBrain:
         self.reflex = ReflexSystem()
         self.inner_world = InnerWorldModel()
         self.goals = GoalSystem()
+
+        # === Faz 2.5: Gelişmiş Biliş ===
+        self.creativity = CreativityModule()
+        self.social_cognition = SocialCognition()
+        self.intuition = IntuitionModule()
 
         # Durum yükle
         self.state = self._load_state()
@@ -194,9 +202,22 @@ class ArtificialBrain:
         working_context = self.working_memory.get_full_context()
         reference_resolution = self.working_memory.resolve_reference(stimulus_data)
 
+        # --- 6.5. ZAMANSAL HAFIZA ---
+        temporal_context = self.memory.get_temporal_context()
+
+        # --- 6.7. SEZGİ (Gut Feeling) ---
+        gut_feeling = self.intuition.get_gut_feeling(stimulus_data)
+
         # --- 7. ÖĞRENME MOTORU (Davranış rehberliği) ---
         behavioral_guidance = self.learning.get_behavioral_guidance(stimulus_data)
         style_hints = self.learning.get_learned_style_hints()
+
+        # --- 7.5. SOSYAL BİLİŞ (Theory of Mind) ---
+        social_context = self.social_cognition.analyze_social_context(stimulus_data, lang_analysis)
+        social_modifiers = self.social_cognition.get_social_prompt_modifiers()
+
+        # --- 7.7. YARATICILIK KATMANI ---
+        creative_enhancement = self.creativity.get_creative_prompt_enhancement(stimulus_data, current_mood if 'current_mood' in dir() else 'balanced')
 
         # --- 8. BİLİNÇALTI FISILDAMASI ---
         subconscious_whisper = ""
@@ -268,6 +289,21 @@ class ArtificialBrain:
             full_context += f"\n[Stil İpuçları]: {'; '.join(style_hints[:3])}\n"
         if subconscious_whisper:
             full_context += subconscious_whisper
+        if creative_enhancement:
+            full_context += creative_enhancement
+
+        # Sosyal biliş modifier'ları
+        if social_modifiers:
+            for mod in social_modifiers:
+                full_context += f"\n[Sosyal Bilgi]: {mod}"
+
+        # Zamansal bağlam
+        if temporal_context:
+            full_context += f"\n{temporal_context}"
+
+        # Sezgisel his
+        if gut_feeling and gut_feeling.get("confidence", 0) > 0.3:
+            full_context += f"\n[Sezgi]: {gut_feeling['description']} {gut_feeling.get('recommendation', '')}"
 
         if impulse["should_delay"]:
             full_context += "\n[Öz-Denetim Uyarısı]: Bu uyarana dürtüsel tepki verme. Daha derin düşün.]"

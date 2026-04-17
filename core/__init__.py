@@ -13,6 +13,10 @@ from .learning import LearningEngine
 from .dream_engine import DreamEngine
 from .self_awareness import SelfAwareness
 from .reflex import ReflexSystem, InnerWorldModel, GoalSystem
+from .creativity import CreativityModule
+from .social_cognition import SocialCognition
+from .intuition import IntuitionModule
+from .memory_bank_sync import MemoryBankSync
 from .model import MODEL_CONFIG
 from .logger import get_logger
 from .validators import validate_config, validate_storage
