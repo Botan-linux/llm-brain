@@ -1,17 +1,22 @@
 """
 İLK — Yapay Beyin Simülasyonu REST API
-FastAPI wrapper — v0.3.0
+FastAPI wrapper — v0.4.0
 
 Endpoint'ler:
-  POST   /api/chat       → Mesaj → Yanıt
-  POST   /api/sleep      → Uyku modu
-  GET    /api/status     → Beyin durumu (JSON)
-  GET    /api/health     → Canlılık kontrolü
-  GET    /api/goals      → Hedef durumu
-  GET    /api/identity   → Öz-farkındalık (kimim?)
-  GET    /api/memories   → Hafıza istatistikleri
-  POST   /api/memories/search → Anı arama
-  GET    /api/config     → LLM yapılandırması (maskelenmiş)
+  POST   /api/chat               → Mesaj → Yanıt
+  POST   /api/sleep              → Uyku modu
+  GET    /api/status             → Beyin durumu (JSON)
+  GET    /api/health             → Canlılık kontrolü
+  GET    /api/goals              → Hedef durumu
+  GET    /api/identity           → Öz-farkındalık (kimim?)
+  GET    /api/memories           → Hafıza istatistikleri
+  POST   /api/memories/search    → Anı arama
+  GET    /api/config             → LLM yapılandırması (maskelenmiş)
+  GET    /api/creativity          → Yaratıcılık durumu
+  GET    /api/social             → Sosyal biliş durumu
+  GET    /api/intuition           → Sezgi durumu
+  GET    /api/dreams             → Rüya raporu
+  GET    /api/temporal           → Zamansal bağlam
 """
 
 import os
@@ -57,8 +62,8 @@ async def lifespan(app: FastAPI):
 # === FastAPI App ===
 app = FastAPI(
     title="İLK — Yapay Beyin Simülasyonu",
-    description="İnsan beyninin 16 modüllü Python simülasyonu REST API'si",
-    version="0.3.0",
+    description="İnsan beyninin 20 modüllü Python simülasyonu REST API'si",
+    version="0.4.0",
     lifespan=lifespan
 )
 
@@ -119,7 +124,7 @@ async def health_check():
         status="operational" if intel_stats["is_healthy"] else "degraded",
         llm_healthy=intel_stats["is_healthy"],
         model=intel_stats["model"],
-        version="0.3.0",
+        version="0.4.0",
         uptime_info=f"Enerji: %{brain.state['energy']:.0f} | Oturum: #{brain.state['session_count']} | Ruh Hali: {brain.limbic.current_mood}"
     )
 
@@ -190,7 +195,7 @@ async def status():
     mem = brain.memory.get_stats()
 
     return {
-        "version": "0.3.0",
+        version="0.4.0",
         "state": {
             "energy": brain.state["energy"],
             "mood": brain.limbic.current_mood,
@@ -209,6 +214,9 @@ async def status():
         "dream": dream,
         "intelligence": intel,
         "goals": gs,
+        "creativity": brain.creativity.get_stats(),
+        "social_cognition": brain.social_cognition.get_stats(),
+        "intuition": brain.intuition.get_stats(),
     }
 
 
@@ -255,10 +263,56 @@ async def config():
         "model": intel.model,
         "base_url": intel.base_url,
         "api_key_masked": masked_key,
-        "version": intel.version,
         "total_requests": intel.request_count,
         "is_healthy": intel.is_healthy(),
         "last_error": intel.last_error,
+    }
+
+
+# === v0.4.0 Yeni Endpoint'ler ===
+
+@app.get("/api/creativity")
+async def creativity_stats():
+    """Yaratıcılık modülü durumu — divergent thinking, analoji, insight."""
+    brain = get_brain()
+    return brain.creativity.get_stats()
+
+
+@app.get("/api/social")
+async def social_stats():
+    """Sosyal biliş durumu — Theory of Mind, empati, kullanıcı profili."""
+    brain = get_brain()
+    return brain.social_cognition.get_stats()
+
+
+@app.get("/api/intuition")
+async def intuition_stats():
+    """Sezgi modülü durumu — gut feeling, pattern matching."""
+    brain = get_brain()
+    return brain.intuition.get_stats()
+
+
+@app.get("/api/dreams")
+async def dreams():
+    """Rüya raporu — REM/NREM döngüleri, içgörüler."""
+    brain = get_brain()
+    return brain.dream_engine.get_dream_report()
+
+
+@app.get("/api/temporal")
+async def temporal():
+    """Zamansal bağlam — son konuşmalar, zaman bilgisi."""
+    brain = get_brain()
+    context = brain.memory.get_temporal_context()
+    recent = brain.memory.search_by_time_range(hours_ago=24, limit=5)
+    return {
+        "context": context,
+        "recent_memories_count": len(recent),
+        "recent_memories": [
+            {"stimulus": m.get("data", {}).get("stimulus", "")[:80],
+             "age_hours": round(m.get("age_hours", 0), 1)}
+            for m in recent
+        ]
     }
 
 

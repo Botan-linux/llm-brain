@@ -4,7 +4,7 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-6c63ff?logo=github&logoColor=white)](https://botan-linux.github.io/llm-brain/)
 [![License](https://img.shields.io/badge/License-MIT-00d4ff)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.3.1-ff6b9d)]()
+[![Version](https://img.shields.io/badge/version-0.4.0-ff6b9d)]()
 
 LLM Brain, biyolojik insan beyninin temel yapılarını ve süreçlerini yapay zeka üzerine taşımak amacıyla geliştirilmiş bir framework'tür. Geleneksel chatbot yaklaşımından farklı olarak; duygu, bilinçaltı, enerji yönetimi, hafıza konsolidasyonu ve nöroplastisite gibi gerçek nörolojik mekanizmaları simüle eder. Yapay zeka varlığı **"İLK"** (Türkçe "ilk") adıyla bilinir.
 
@@ -135,6 +135,20 @@ Propriosepsiyon simülasyonu. Öz-algı, enerji trendleri, oturum süresi takibi
 ### Goal System — Hedef Sistemi
 3 varsayılan uzun vadeli hedef (insan beynini simüle etme, öğrenme, kullanıcıya yardımcı olma). Kısa vadeli hedef yönetimi. Motivasyon azalma/artış mekanizması. Başarı takibi. Durumu `goals.json` dosyasına kalıcı olarak saklanır.
 
+### Faz 2.5 — Gelişmiş Biliş
+
+### Creativity Module — Yaratıcılık Motoru
+Divergent thinking (çoklu alternatif çözüm üretimi), convergent thinking, metafor oluşturma, analoji tespiti, lateral thinking. Rastgele fikir havuzu, insight kayıt sistemi. Yaratıcılık skoru deneyimlerle gelişir. Durumu `creativity.json` dosyasına kalıcı olarak saklanır.
+
+### Social Cognition — Sosyal Biliş
+Theory of Mind (kullanıcı niyeti/düşüncesi tahmini), empati simülasyonu, sosyal bağlam algılama (resmi/gayri resmi/samimi), kullanıcı profili oluşturma, sosyal norm uyumu, ilişki derinliği takibi. Durumu `social_cognition.json` dosyasına kalıcı olarak saklanır.
+
+### Intuition Module — Sezgisel Düşünce
+Gut feeling (bilinçsiz hızlı değerlendirme), pattern matching (bilinen örüntüleri yeni durumlara uygulama), anomal algılama, sezgisel karar desteği. Kahneman'ın Sistem 1 simülasyonu. Durumu `intuition.json` dosyasına kalıcı olarak saklanır.
+
+### Temporal Memory — Zamansal Hafıza
+Zaman bilinçli hafıza sistemi. "Dün konuştuğumuz...", "Son 24 saatte ne oldu..." zamansal bağ kurma. Saat dilimi farkındalığı, son etkileşim takibi. Memory Gateway'e entegre edilmiştir.
+
 ---
 
 ## Enerji ve Uyku Sistemi
@@ -169,14 +183,14 @@ Beyin `100` enerji ile başlar. Her uyaran enerji tüketir (şiddet ve karmaşı
 ```
 llm-brain/
 ├── core/
-│   ├── brain.py              # Merkezi beyin kontrolü (14 adımlı pipeline)
-│   ├── intelligence.py       # LLM zeka katmanı (Anthropic + OpenAI)
-│   ├── memory.py             # Hafıza sistemi (kısa + uzun süreli + arama)
-│   ├── limbic.py             # Duygu ve ruh hali yönetimi (6 durum)
+│   ├── brain.py              # Merkezi beyin kontrolü (16+ adımlı pipeline)
+│   ├── intelligence.py       # LLM zeka katmanı (Z.ai SDK / OpenAI)
+│   ├── memory.py             # Hafıza sistemi (kısa + uzun süreli + zamansal + arama)
+│   ├── limbic.py             # Duygu ve ruh hali yönetimi (7 durum)
 │   ├── ego.py                # Bilinç ve kişilik katmanı
 │   ├── thalamus.py           # Dikkat filtresi
 │   ├── subconscious.py       # Bilinçaltı arka plan işlemcisi
-│   ├── prefrontal.py         # Prefrontal korteks (karar/plan)
+│   ├── prefrontal.py         # Prefrontal korteks (karar/plan/serendipity)
 │   ├── working_memory.py     # Çalışma hafızası (sohbet bağlamı)
 │   ├── language_processor.py # Dil analizi (Wernicke/Broca)
 │   ├── emotional_memory.py   # Duygusal hafıza (Amygdala/Hippocampus)
@@ -184,7 +198,14 @@ llm-brain/
 │   ├── dream_engine.py       # Rüya motoru (REM/NREM)
 │   ├── self_awareness.py     # Öz-farkındalık (meta-biliş)
 │   ├── reflex.py             # Refleks sistemi + İç dünya + Hedefler
-│   └── model.py              # LLM model konfigürasyonu
+│   ├── creativity.py         # Yaratıcılık motoru (divergent thinking)
+│   ├── social_cognition.py   # Sosyal biliş (Theory of Mind, empati)
+│   ├── intuition.py          # Sezgisel düşünce (gut feeling)
+│   ├── memory_bank_sync.py   # Memory Bank otomatik senkronizasyon
+│   ├── model.py              # LLM model konfigürasyonu
+│   ├── validators.py         # Validasyon
+│   ├── logger.py             # Loglama
+│   └── __init__.py           # Exports
 ├── storage/
 │   ├── long_term/            # Kalıcı deneyimler (JSON + MD)
 │   ├── short_term/           # Geçici deneyimler (JSON)
@@ -282,6 +303,19 @@ python3 tests/sleep_test.py
 ---
 
 ## Sürüm Geçmişi
+
+### v0.4.0 — Yeni Biliş Modülleri
+- **Creativity Module**: Divergent/convergent thinking, analoji, insight tracking
+- **Social Cognition**: Theory of Mind geliştirmesi, empati simülasyonu, kullanıcı profili
+- **Intuition Module**: Gut feeling, pattern matching, anomal algılama
+- **Temporal Memory**: Zamansal bağlam, saat dilimi farkındalığı
+- **Memory Bank Sync**: Otomatik activeContext ve progress güncellemesi
+- **API v2**: 5 yeni endpoint (creativity, social, intuition, dreams, temporal) — toplam 14 endpoint
+- **Dream Engine Fix**: Bağımsız hata takibi, is_healthy() bağımlılıktan kurtarıldı
+- **Subconscious Fix**: Aynı health check düzeltmesi uygulandı
+- **Prefrontal İyileştirme**: Tekrar cezası, keşif bonusu, serendipity mekanizması (%15)
+- **Cognitive Flexibility**: Learning rate 2x artırıldı
+- Toplam modül: 20 (16 → 20)
 
 ### v0.3.1 — İnsan Benzerliği İyileştirmeleri
 - Talamus eşikleri yeniden ayarlandı — düşük enerjide bile temel uyaranlara tepki

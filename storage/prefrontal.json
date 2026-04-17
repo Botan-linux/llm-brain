@@ -224,10 +224,100 @@
             "emotional_state": "curious",
             "alternatives_count": 2,
             "timestamp": "2026-04-17T20:40:20.546803"
+        },
+        {
+            "context": "test context",
+            "selected_action": "hızlı_yanıt",
+            "confidence": 0.8,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.250668"
+        },
+        {
+            "context": "test context",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.71,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.250767"
+        },
+        {
+            "context": "test context",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.73,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.250808"
+        },
+        {
+            "context": "test context",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.73,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.250873"
+        },
+        {
+            "context": "test context",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.73,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.250903"
+        },
+        {
+            "context": "test context",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.71,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.251365"
+        },
+        {
+            "context": "test context",
+            "selected_action": "hızlı_yanıt",
+            "confidence": 0.7,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.251398"
+        },
+        {
+            "context": "test context",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.71,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.251426"
+        },
+        {
+            "context": "test context",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.73,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.251451"
+        },
+        {
+            "context": "test context",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.73,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T21:11:47.251477"
         }
     ],
     "impulse_threshold": 0.7,
-    "cognitive_flexibility": 0.423,
+    "cognitive_flexibility": 0.447,
     "plan_memory": [
         {
             "id": 1,
@@ -284,6 +374,6 @@
             "blocked": false
         }
     ],
-    "total_decisions": 25,
+    "total_decisions": 35,
     "self_control_score": 0.5900000000000001
 }

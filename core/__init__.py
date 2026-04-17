@@ -21,5 +21,5 @@ from .model import MODEL_CONFIG
 from .logger import get_logger
 from .validators import validate_config, validate_storage
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __author__ = "p4antom"
