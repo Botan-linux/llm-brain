@@ -20,7 +20,7 @@ from core.reflex import ReflexSystem, InnerWorldModel, GoalSystem
 
 class ArtificialBrain:
     """
-    İLK — Yapay Beyin Simülasyonu v1.0
+    İLK — Yapay Beyin Simülasyonu v0.3
     
     İnsan beyninin temel yapılarını ve süreçlerini simüle eder:
     - Thalamus: Dikkat filtresi
@@ -85,7 +85,7 @@ class ArtificialBrain:
             "last_stimulus": None,
             "development_stage": self.limbic.development_stage,
             "session_count": 0,
-            "version": "1.0"
+            "version": "0.3"
         }
         if os.path.exists(self.settings_path):
             try:
@@ -317,7 +317,7 @@ class ArtificialBrain:
 
         return (
             f"╔══════════════════════════════════════════════╗\n"
-            f"║         İLK BEYİN DURUM RAPORU v1.0        ║\n"
+            f"║         İLK BEYİN DURUM RAPORU v0.3        ║\n"
             f"╠══════════════════════════════════════════════╣\n"
             f"║ Enerji:          %{self.state['energy']:>5.0f}                    ║\n"
             f"║ Ruh Hali:        {self.limbic.current_mood:<25}║\n"
@@ -435,7 +435,7 @@ if __name__ == "__main__":
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    print(f"\n[*] İLK v1.0 aktif.")
+    print(f"\n[*] İLK v0.3 aktif.")
     print("[*] Komutlar: 'uyu' | 'kapat' | 'durum' | 'hedefler' | 'kimim'")
 
     while True:

@@ -194,7 +194,7 @@ llm-brain/
 ├── tests/
 │   ├── test_integration.py   # Bütünleşik test
 │   ├── test_memory.py        # Hafıza sistemi testi
-│   ├── test_v1_integration.py # v1.0 modül testleri
+│   ├── test_v1_integration.py # Yeni modül entegrasyon testleri
 │   ├── debug_gateway.py      # API bağlantı testi
 │   └── sleep_test.py         # Uyku ve konsolidasyon testi
 ├── docs/
@@ -223,7 +223,7 @@ python3 -m core.brain
 ```
 
 ```
-[*] İLK v1.0 aktif.
+[*] İLK v0.3 aktif.
 [*] Komutlar: 'uyu' | 'kapat' | 'durum' | 'hedefler' | 'kimim'
 
 Sen > Hayatın anlamı nedir?
@@ -263,7 +263,7 @@ python3 tests/test_integration.py
 # Hafıza sistemi testi
 python3 tests/test_memory.py
 
-# v1.0 modül testleri
+# Yeni modül entegrasyon testleri
 python3 tests/test_v1_integration.py
 
 # API bağlantı testi
@@ -277,7 +277,7 @@ python3 tests/sleep_test.py
 
 ## Sürüm Geçmişi
 
-### v1.0.0 — 10 Yeni Modül
+### v0.3.0 — 10 Yeni Modül
 - Prefrontal Cortex, Working Memory, Language Processor, Emotional Memory
 - Learning Engine, Dream Engine, Self-Awareness
 - Reflex System, Inner World Model, Goal System

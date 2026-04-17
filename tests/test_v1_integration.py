@@ -1,5 +1,5 @@
 
-"""Test: Tüm v1.0 modüllerinin entegrasyon testi."""
+"""Test: Tüm v0.3 modüllerinin entegrasyon testi."""
 
 import sys
 import os
@@ -21,7 +21,7 @@ from core.intelligence import IntelligenceLayer
 
 def test_all_v1_modules():
     print("=" * 60)
-    print("  LLM-Brain v1.0 — Tüm Modüller Entegrasyon Testi")
+    print("  LLM-Brain v0.3 — Tüm Modüller Entegrasyon Testi")
     print("=" * 60)
 
     errors = []
