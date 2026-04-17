@@ -1,0 +1,13 @@
+{
+    "timestamp": "2026-04-17T13:58:53.032449",
+    "data": {
+        "test": "deneme"
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.39999999999999947,
+        "access_count": 1,
+        "last_access": "2026-04-17T13:58:53.032313",
+        "created_at": "2026-04-17T13:58:53.032315"
+    }
+}

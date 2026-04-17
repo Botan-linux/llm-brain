@@ -17,6 +17,15 @@
             "emotional_state": "analytical",
             "alternatives_count": 1,
             "timestamp": "2026-04-17T13:20:07.101169"
+        },
+        {
+            "context": "Test context",
+            "selected_action": "think",
+            "confidence": 0.8,
+            "energy_at_decision": 80,
+            "emotional_state": "analytical",
+            "alternatives_count": 1,
+            "timestamp": "2026-04-17T13:58:52.007534"
         }
     ],
     "impulse_threshold": 0.7,
@@ -57,8 +66,26 @@
             "created_at": "2026-04-17T13:20:07.101182",
             "completed_steps": [],
             "blocked": false
+        },
+        {
+            "id": 3,
+            "goal": "Test goal",
+            "steps": [
+                {
+                    "action": "step1"
+                },
+                {
+                    "action": "step2"
+                }
+            ],
+            "priority": "normal",
+            "status": "active",
+            "current_step": 0,
+            "created_at": "2026-04-17T13:58:52.007548",
+            "completed_steps": [],
+            "blocked": false
         }
     ],
-    "total_decisions": 2,
-    "self_control_score": 0.56
+    "total_decisions": 3,
+    "self_control_score": 0.5900000000000001
 }

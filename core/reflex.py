@@ -2,6 +2,9 @@ import re
 import json
 import os
 from datetime import datetime
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class ReflexSystem:
@@ -27,6 +30,7 @@ class ReflexSystem:
                 "storage", "reflexes.json"
             )
         self.storage_path = storage_path
+        self._reset()
         self._load()
 
     def _load(self):
@@ -55,7 +59,8 @@ class ReflexSystem:
             "selamlama": {
                 "triggers": [
                     r"^merhaba", r"^selam", r"^hey", r"^günaydın",
-                    r"^iyi akşamlar", r"^iyi geceler", r"^nasılsın", r"^ne haber"
+                    r"^iyi akşamlar", r"^iyi geceler", r"^nasılsın", r"^ne haber",
+                    r"^hello", r"^hi\b", r"^hey\b", r"^good morning", r"^how are you"
                 ],
                 "responses": {
                     "high_energy": "Merhaba! Size nasıl yardımcı olabilirim?",
@@ -67,7 +72,7 @@ class ReflexSystem:
             "teşekkür": {
                 "triggers": [
                     r"^teşekkür", r"^sağol", r"^eyvallah", r"^tşk",
-                    r"^thanks", r"^thank you"
+                    r"^thanks", r"^thank you", r"^thx"
                 ],
                 "responses": {
                     "high_energy": "Rica ederim! Başka bir konuda yardımcı olabilir miyim?",
@@ -79,7 +84,8 @@ class ReflexSystem:
             "vedalaşma": {
                 "triggers": [
                     r"^hoşça kal", r"^görüşürüz", r"^bye", r"^güle güle",
-                    r"^kendine iyi bak"
+                    r"^kendine iyi bak",
+                    r"^goodbye", r"^see you", r"^farewell", r"^take care"
                 ],
                 "responses": {
                     "high_energy": "Görüşmek üzere! İyi günler!",
@@ -484,20 +490,20 @@ class GoalSystem:
 if __name__ == "__main__":
     # Reflex test
     rs = ReflexSystem()
-    print("Reflex 'merhaba':", rs.check("Merhaba!", 80, "balanced"))
-    print("Reflex 'teşekkür':", rs.check("Teşekkür ederim!", 60, "balanced"))
-    print("Reflex 'kim sin':", rs.check("Kimsin sen?", 50, "analytical"))
-    print("Reflex 'normal':", rs.check("Python nedir?", 80, "balanced"))
+    logger.debug("Reflex 'merhaba': %s", rs.check("Merhaba!", 80, "balanced"))
+    logger.debug("Reflex 'teşekkür': %s", rs.check("Teşekkür ederim!", 60, "balanced"))
+    logger.debug("Reflex 'kim sin': %s", rs.check("Kimsin sen?", 50, "analytical"))
+    logger.debug("Reflex 'normal': %s", rs.check("Python nedir?", 80, "balanced"))
 
     # Inner World test
     iw = InnerWorldModel()
     iw.update_perception({"energy": 80, "mood": "balanced", "emotions": {}})
     iw.update_perception({"energy": 60, "mood": "analytical", "emotions": {}})
-    print("\nSelf perception:", iw.get_self_perception())
-    print("Limits:", iw.get_limits())
+    logger.debug("Self perception: %s", iw.get_self_perception())
+    logger.debug("Limits: %s", iw.get_limits())
 
     # Goal test
     gs = GoalSystem()
     gs.set_short_term_goal("Kullanıcıya yardım et")
     gs.complete_short_term_goal("Kullanıcıya yardım et")
-    print("\nMotivation:", gs.get_motivation_summary())
+    logger.debug("Motivation: %s", gs.get_motivation_summary())

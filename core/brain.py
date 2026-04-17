@@ -3,6 +3,9 @@ import os
 import signal
 import sys
 import atexit
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 from core.intelligence import IntelligenceLayer
 from core.memory import MemoryGateway
 from core.limbic import LimbicSystem
@@ -104,7 +107,7 @@ class ArtificialBrain:
             json.dump(self.state, f, indent=4, ensure_ascii=False)
 
     def _handle_exit_attempt(self, signum, frame):
-        print("\n\n[!] Sistem: Beyin fonksiyonları aniden kesilemez. Lütfen 'uyu' komutunu kullanın.")
+        logger.warning("Beyin fonksiyonları aniden kesilemez. Lütfen 'uyu' komutunu kullanın.")
 
     def process_stimulus(self, stimulus_data):
         """Ana uyaran işleme pipeline'ı — tüm beyin bölgeleri koordineli çalışır."""
@@ -120,7 +123,7 @@ class ArtificialBrain:
             self.dream_engine.stop()
             self._save_state()
             self.inner_world.new_session()
-            print("\n[*] İLK kapatılıyor. Görüşmek üzere.")
+            logger.info("İLK kapatılıyor. Görüşmek üzere.")
             sys.exit(0)
 
         if cmd in ["durum", "status"]:
@@ -299,7 +302,7 @@ class ArtificialBrain:
         self.state["energy"] -= energy_cost
         if self.state["energy"] <= 0:
             self.state["energy"] = 0
-            print("\n[!] Enerji kritik seviyede. Uyku gerekiyor.")
+            logger.warning("Enerji kritik seviyede. Uyku gerekiyor.")
 
         self.state["last_stimulus"] = stimulus_data
 
@@ -404,7 +407,7 @@ class ArtificialBrain:
 
     def sleep(self):
         """Gelişmiş uyku evresi."""
-        print("\n[*] Beyin uyku moduna (REM) geçiyor...")
+        logger.info("Beyin uyku moduna (REM) geçiyor...")
 
         # Hafıza konsolidasyonu
         consolidated, forgotten = self.memory.consolidate_memories(threshold=0.4)
@@ -461,8 +464,8 @@ if __name__ == "__main__":
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    print(f"\n[*] İLK v0.3 aktif.")
-    print("[*] Komutlar: 'uyu' | 'kapat' | 'durum' | 'hedefler' | 'kimim'")
+    logger.info("İLK v0.3 aktif.")
+    logger.info("Komutlar: 'uyu' | 'kapat' | 'durum' | 'hedefler' | 'kimim'")
 
     while True:
         try:

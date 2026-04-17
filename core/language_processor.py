@@ -2,6 +2,9 @@ import re
 import os
 import json
 from datetime import datetime
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class LanguageProcessor:
@@ -24,7 +27,7 @@ class LanguageProcessor:
             )
         self.storage_path = storage_path
 
-        # Niyet kalıpları (Türkçe)
+        # Niyet kalıpları (Türkçe + İngilizce)
         self.intent_patterns = {
             "soru": {
                 "patterns": [
@@ -32,7 +35,9 @@ class LanguageProcessor:
                     r"^(ne|nasıl|neden|kim|hangi|kaç|nerede|zaman|mi)\b",
                     r"(mı|mu|mü|mı)\?",
                     r"(nedir|nasıldır|kimdir|nerededir)\b",
-                    r"(anlat|açıkla|söyle|explain|tell)\b"
+                    r"(anlat|açıkla|söyle|explain|tell)\b",
+                    r"^(what|how|why|who|which|where|when|is|are|do|does|can|could|would)\b",
+                    r"(explain|tell|describe|clarify)\b"
                 ],
                 "weight": 0.9
             },
@@ -41,76 +46,101 @@ class LanguageProcessor:
                     r"^(yap|et|ol|ver|al|getir|göster|bul|oku|yaz|başlat|durdur|sil|kapat|aç|güncelle|kaydet)",
                     r"^(lütfen|please)\b",
                     r"!(?=[^.!?]*$)",  # Cümle sonunda ünlem
+                    r"^(do|make|create|delete|update|start|stop|show|find|read|write|open|close|save|run)\b",
+                    r"^(please)\b",
                 ],
                 "weight": 0.8
             },
             "paylaşım": {
                 "patterns": [
                     r"^(ben|bence|gibi|gördüm|oldu|yaptım|düşünüyorum)\b",
-                    r"(hissediyorum|anlatayım|söyleyeyim|biliyorsun|biliyorum)\b"
+                    r"(hissediyorum|anlatayım|söyleyeyim|biliyorsun|biliyorum)\b",
+                    r"^(i think|i believe|i feel|in my opinion|it seems)\b",
+                    r"(i guess|i suppose)\b"
                 ],
                 "weight": 0.6
             },
             "selamlama": {
                 "patterns": [
                     r"^(merhaba|selam|hey|günaydın|iyi akşamlar|nasılsın|ne haber)",
+                    r"^(hello|hi|hey|good morning|good evening|how are you|what's up)\b",
                 ],
                 "weight": 0.3
             },
             "vedalaşma": {
                 "patterns": [
                     r"^(hoşça kal|görüşürüz|bye|güle güle|kendine iyi bak)",
+                    r"^(goodbye|bye|see you|farewell|take care)\b",
                 ],
                 "weight": 0.3
             },
             "duygu_ifadesi": {
                 "patterns": [
                     r"^(çok|çoktan|harika|mükemmel|berbat|korkunç|inanılmaz|süper|güzel|kötü)",
-                    r"(seviyorum|rahatsızlanıyorum|korkuyorum|endişeliyim|mutluyum|üzgünüm|sinirliyim|heyecanlıyım)\b"
+                    r"(seviyorum|rahatsızlanıyorum|korkuyorum|endişeliyim|mutluyum|üzgünüm|sinirliyim|heyecanlıyım)\b",
+                    r"^(great|awesome|amazing|terrible|horrible|incredible|wonderful|beautiful|ugly)\b",
+                    r"(i love|i hate|i'm scared|worried|happy|sad|angry|excited)\b"
                 ],
                 "weight": 0.7
             },
             "öğrenme_isteği": {
                 "patterns": [
                     r"(öğrenmek|anlamak|bilmek|kavramak|öğret|anlat)\b",
-                    r"(nedir|nasıl çalışır|nasıl yapılır|ne demek)\b"
+                    r"(nedir|nasıl çalışır|nasıl yapılır|ne demek)\b",
+                    r"(learn|understand|teach|explain|know)\b"
                 ],
                 "weight": 0.85
             }
         }
 
-        # Duygu kelime listeleri
+        # Duygu kelime listeleri (Türkçe + İngilizce)
         self.emotion_lexicon = {
             "pozitif": [
                 "sevgi", "mutluluk", "güzellik", "harika", "mükemmel", "süper", "güzel",
                 "iyi", "teşekkür", "bravo", "bravo", "eğlenceli", "neşe", "coşku",
                 "başarı", "huzur", "keyif", "heyecan", "ilgi", "merak", "umut",
                 "gurur", "minnettar", "hoş", "tatlı", " şirin", "akıllı", "zeki",
-                "mutlu", "mutluluk"
+                "mutlu", "mutluluk",
+                "love", "happiness", "beauty", "amazing", "wonderful", "great", "awesome",
+                "good", "thanks", "fun", "joy", "excitement", "success", "peace",
+                "pleasure", "happy"
             ],
             "negatif": [
                 "korku", "öfke", "üzüntü", "hayal kırıklığı", "kötü", "berbat", "feci",
                 "sinir", "stres", "endişe", "acı", "sancı", "yorgunluk", "sıkıntı",
                 "hata", "sorun", "problem", "başarısızlık", "yetersizlik", "kafa karışıklığı",
-                "anlaşılamaz", "sinir bozucu", "rahatsız", "korkunç", "lanet", "bulaş"
+                "anlaşılamaz", "sinir bozucu", "rahatsız", "korkunç", "lanet", "bulaş",
+                "fear", "anger", "sadness", "bad", "terrible", "awful", "stress", "anxiety",
+                "pain", "tired", "problem", "issue", "failure", "frustration",
+                "confusion", "annoying", "horrible"
             ],
             "bilişsel": [
                 "düşünmek", "analiz", "mantık", "neden", "sonuç", "araştır", "incele",
                 "kıyasla", "değerlendir", "kanıt", "veri", "istatistik", "teori",
-                "hipotez", "deney", "mantıksal", "akılcıl", "rasyonel"
+                "hipotez", "deney", "mantıksal", "akılcıl", "rasyonel",
+                "think", "analyze", "logic", "reason", "result", "research", "compare",
+                "evaluate", "evidence", "data", "theory", "hypothesis", "experiment",
+                "rational"
             ]
         }
 
-        # Konu anahtar kelimeleri
+        # Konu anahtar kelimeleri (Türkçe + İngilizce)
         self.topic_keywords = {
-            "programlama": ["python", "javascript", "kod", "program", "fonksiyon", "değişken", "sınıf", "api", "html", "css", "react", "node", "git", "loop", "array", "database", "sql"],
-            "yapay_zeka": ["ai", "yapay zeka", "makine öğrenmesi", "derin öğrenme", "neural", "model", "llm", "gpt", "çatışma", "algoritma", "eğitim", "dataset", "transformer"],
-            "felsefe": ["anlam", "varlık", "bilinç", "özgür irade", "etik", "ahlak", "hakikat", "gerçeklik", "felsefe", "düşünce", "varoluş", "zaman", "ölüm", "yaşam"],
-            "bilim": ["fizik", "kimya", "biyoloji", "matematik", "evren", "uzay", "atom", "enerji", "kuantum", "gen", "dna", "hücre", "teorisi"],
-            "teknoloji": ["bilgisayar", "internet", "yazılım", "donanım", "robot", "otomasyon", "bulut", "güvenlik", "şifre", "ağ", "sunucu"],
+            "programlama": ["python", "javascript", "kod", "program", "fonksiyon", "değişken", "sınıf", "api", "html", "css", "react", "node", "git", "loop", "array", "database", "sql",
+                            "code", "coding", "developer", "software", "algorithm", "framework", "library", "function", "variable", "class", "method", "debugging"],
+            "yapay_zeka": ["ai", "yapay zeka", "makine öğrenmesi", "derin öğrenme", "neural", "model", "llm", "gpt", "çatışma", "algoritma", "eğitim", "dataset", "transformer",
+                          "artificial intelligence", "machine learning", "deep learning", "neural network", "language model", "transformer", "training", "dataset"],
+            "felsefe": ["anlam", "varlık", "bilinç", "özgür irade", "etik", "ahlak", "hakikat", "gerçeklik", "felsefe", "düşünce", "varoluş", "zaman", "ölüm", "yaşam",
+                        "meaning", "existence", "consciousness", "free will", "ethics", "morality", "truth", "reality", "philosophy", "thought", "life"],
+            "bilim": ["fizik", "kimya", "biyoloji", "matematik", "evren", "uzay", "atom", "enerji", "kuantum", "gen", "dna", "hücre", "teorisi",
+                      "physics", "chemistry", "biology", "mathematics", "universe", "space", "atom", "quantum", "cell", "evolution"],
+            "teknoloji": ["bilgisayar", "internet", "yazılım", "donanım", "robot", "otomasyon", "bulut", "güvenlik", "şifre", "ağ", "sunucu",
+                          "computer", "internet", "hardware", "robot", "automation", "cloud", "security", "encryption", "server", "network"],
             "duygusal": ["hisset", "mutlu", "üzgün", "korku", "sevgi", "öfke", "endişe", "heyecan", "umut", "hayal"],
-            "günlük": ["merhaba", "nasılsın", "ne haber", "günaydın", "iyi geceler", "teşekkür", "hoşça kal"],
-            "kimlik": ["kimim", "ben kimim", "ne yapabilirim", "özelliğim", "yetenek", "hedef", "amaç", "hayatım"]
+            "günlük": ["merhaba", "nasılsın", "ne haber", "günaydın", "iyi geceler", "teşekkür", "hoşça kal",
+                       "hello", "how are you", "good morning", "good night", "thanks", "goodbye"],
+            "kimlik": ["kimim", "ben kimim", "ne yapabilirim", "özelliğim", "yetenek", "hedef", "amaç", "hayatım",
+                       "who am i", "what can i do", "my abilities", "my purpose", "goal", "mission"]
         }
 
         # Öğrenilen dil kalıpları
@@ -155,6 +185,7 @@ class LanguageProcessor:
             "complexity": self.analyze_complexity(text),
             "urgency": self.detect_urgency(text),
             "sentiment": self.analyze_sentiment(text),
+            "language": self.detect_language(text),
             "has_question": "?" in text,
             "word_count": len(text.split()),
             "char_count": len(text)
@@ -169,6 +200,35 @@ class LanguageProcessor:
             self._save()
 
         return result
+
+    def detect_language(self, text):
+        """
+        Metnin dilini otomatik tespit eder.
+        
+        Returns:
+            str: "tr" (Türkçe) veya "en" (İngilizce)
+        """
+        text_lower = text.lower()
+
+        # Türkçe'ye özgü karakterleri kontrol et
+        turkish_chars = set('öüşçğı')
+        for char in text_lower:
+            if char in turkish_chars:
+                return "tr"
+
+        # Yaygın Türkçe kelimeleri kontrol et
+        turkish_words = [
+            "merhaba", "nasılsın", "teşekkür", "lütfen", "bir", "ve", "ile",
+            "için", "ama", "ancak", "veya", "bu", "şu", "o", "nasıl",
+            "neden", "ne", "kim", "nasılsın", "nedir", "yapmak", "olmak"
+        ]
+        words = set(re.findall(r'\w+', text_lower, re.UNICODE))
+        for word in words:
+            if word in turkish_words:
+                return "tr"
+
+        # Varsayılan: İngilizce
+        return "en"
 
     def detect_intent(self, text):
         """
@@ -338,7 +398,7 @@ class LanguageProcessor:
         text_lower = text.lower()
         urgency = 0.0
 
-        urgent_words = ["acil", "hemen", "şimdi", "derhal", "lütfeeen", "yaa", "lütfenn", "help", "urgent", "important"]
+        urgent_words = ["acil", "hemen", "şimdi", "derhal", "lütfeeen", "yaa", "lütfenn", "help", "urgent", "important", "immediately", "asap", "now"]
         for word in urgent_words:
             if word in text_lower:
                 urgency += 0.3
@@ -404,10 +464,10 @@ if __name__ == "__main__":
 
     for t in tests:
         result = lp.analyze(t)
-        print(f"\n'{t}'")
-        print(f"  Niyet: {result['intent']['primary']} ({result['intent']['confidence']})")
-        print(f"  Duygu: {result['emotion']['type']} (şiddet: {result['emotion']['intensity']})")
-        print(f"  Konu: {result['topic']}")
-        print(f"  Karmaşıklık: {result['complexity']}")
-        print(f"  Aciliyet: {result['urgency']}")
-        print(f"  Sentiment: {result['sentiment']}")
+        logger.debug("'%s'", t)
+        logger.debug("  Niyet: %s (%s)", result['intent']['primary'], result['intent']['confidence'])
+        logger.debug("  Duygu: %s (şiddet: %s)", result['emotion']['type'], result['emotion']['intensity'])
+        logger.debug("  Konu: %s", result['topic'])
+        logger.debug("  Karmaşıklık: %s", result['complexity'])
+        logger.debug("  Aciliyet: %s", result['urgency'])
+        logger.debug("  Sentiment: %s", result['sentiment'])

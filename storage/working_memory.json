@@ -15,9 +15,19 @@
             "topic": "günlük",
             "duration_turns": 5,
             "ended_at": "2026-04-17T13:20:07.101645"
+        },
+        {
+            "topic": "programlama",
+            "duration_turns": 7,
+            "ended_at": "2026-04-17T13:58:52.008030"
+        },
+        {
+            "topic": "günlük",
+            "duration_turns": 8,
+            "ended_at": "2026-04-17T13:58:52.008047"
         }
     ],
-    "turn_count": 6,
+    "turn_count": 9,
     "active_references": {
         "selam": {
             "mention": "Selam",
@@ -27,7 +37,7 @@
         "python": {
             "mention": "Python",
             "context": "Python nedir?",
-            "turn": 5
+            "turn": 8
         },
         "programlama": {
             "mention": "Programlama",
@@ -37,7 +47,7 @@
         "bunu": {
             "mention": "Bunu",
             "context": "Bunu açıklar mısın?",
-            "turn": 6
+            "turn": 9
         },
         "tabii": {
             "mention": "Tabii",
@@ -46,5 +56,5 @@
         }
     },
     "total_sessions": 1,
-    "total_turns": 6
+    "total_turns": 9
 }

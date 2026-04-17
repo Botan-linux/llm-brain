@@ -2,6 +2,9 @@ import json
 import os
 from datetime import datetime
 import re
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class EmotionalMemory:
@@ -299,7 +302,7 @@ if __name__ == "__main__":
     em.encode("Harika bir gün geçirdim!", "pozitif", 0.9, 0.95, "günlük")
     em.encode("Çok korkunç bir rüya gördüm", "negatif", 0.95, -0.9, "rüya")
 
-    print("Duygusal bağlam:", em.get_emotional_context("Python kodu"))
-    print("Tetikleyici:", em.check_emotional_trigger("kod çalışmadı hata"))
-    print("Flashbulb:", em.get_flashbulb_memories())
-    print("Stats:", em.get_stats())
+    logger.debug("Duygusal bağlam: %s", em.get_emotional_context("Python kodu"))
+    logger.debug("Tetikleyici: %s", em.check_emotional_trigger("kod çalışmadı hata"))
+    logger.debug("Flashbulb: %s", em.get_flashbulb_memories())
+    logger.debug("Stats: %s", em.get_stats())

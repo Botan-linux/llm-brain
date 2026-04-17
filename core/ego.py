@@ -1,5 +1,8 @@
 import os
 import json
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 class CyberEgo:
     """
@@ -124,6 +127,6 @@ class CyberEgo:
 
 if __name__ == "__main__":
     ego = CyberEgo()
-    print("[*] Siber Bilinç (Cyber-Ego) başlatıldı.")
-    print(f"[*] Kimlik: {ego.identity[:80]}...")
-    print(f"[*] Kişilik: {ego.get_personality_summary()}")
+    logger.info("Siber Bilinç (Cyber-Ego) başlatıldı.")
+    logger.debug(f"Kimlik: {ego.identity[:80]}...")
+    logger.debug(f"Kişilik: {ego.get_personality_summary()}")

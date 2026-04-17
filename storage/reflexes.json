@@ -1,0 +1,86 @@
+{
+    "conditioned_reflexes": {
+        "learned_0": {
+            "trigger": "test_pattern",
+            "responses": {
+                "high_energy": "test_response",
+                "normal": "test_response",
+                "low_energy": "test_response"
+            },
+            "priority": 0.5
+        }
+    },
+    "reflex_log": [
+        {
+            "reflex": "selamlama",
+            "stimulus": "hello there",
+            "response": "Merhaba! Size nasıl yardımcı olabilirim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.793520"
+        },
+        {
+            "reflex": "selamlama",
+            "stimulus": "hi!",
+            "response": "Merhaba! Size nasıl yardımcı olabilirim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.793572"
+        },
+        {
+            "reflex": "selamlama",
+            "stimulus": "hey you",
+            "response": "Merhaba! Size nasıl yardımcı olabilirim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.793595"
+        },
+        {
+            "reflex": "selamlama",
+            "stimulus": "good morning!",
+            "response": "Merhaba! Size nasıl yardımcı olabilirim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.793644"
+        },
+        {
+            "reflex": "selamlama",
+            "stimulus": "how are you?",
+            "response": "Merhaba! Size nasıl yardımcı olabilirim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.793679"
+        },
+        {
+            "reflex": "teşekkür",
+            "stimulus": "thanks a lot",
+            "response": "Rica ederim! Başka bir konuda yardımcı olabilir miyim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.794027"
+        },
+        {
+            "reflex": "teşekkür",
+            "stimulus": "thank you!",
+            "response": "Rica ederim! Başka bir konuda yardımcı olabilir miyim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.794074"
+        },
+        {
+            "reflex": "teşekkür",
+            "stimulus": "thx!",
+            "response": "Rica ederim! Başka bir konuda yardımcı olabilir miyim?",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.794105"
+        },
+        {
+            "reflex": "vedalaşma",
+            "stimulus": "goodbye!",
+            "response": "Görüşmek üzere! İyi günler!",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.794218"
+        },
+        {
+            "reflex": "vedalaşma",
+            "stimulus": "see you later",
+            "response": "Görüşmek üzere! İyi günler!",
+            "energy": 80,
+            "timestamp": "2026-04-17T14:15:53.794264"
+        }
+    ],
+    "total_reflexes": 10
+}

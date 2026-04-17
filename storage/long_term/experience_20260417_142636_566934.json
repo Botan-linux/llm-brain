@@ -1,0 +1,19 @@
+{
+    "timestamp": "2026-04-17T14:26:36.566963",
+    "data": {
+        "stimulus": "test input",
+        "response": "[Analitik Düşünce]: Bu bir test yanıtını. Mock zeka katmanından geldi.\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 0.5,
+        "intensity": 1.0,
+        "intent": "genel_sohbet",
+        "topic": null
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.7599999999999998,
+        "access_count": 1,
+        "last_access": "2026-04-17T14:26:36.566946",
+        "created_at": "2026-04-17T14:26:36.566948"
+    }
+}

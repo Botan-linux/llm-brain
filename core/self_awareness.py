@@ -328,6 +328,6 @@ if __name__ == "__main__":
         {"stimulus": "Felsefe hakkında konuşalım", "response": "Memnuniyetle", "topic": "felsefe"},
     ], {"energy": 80, "emotions": {"analytical": 0.7}})
 
-    print("Kimlik:", sa.answer_who_am_i())
-    print("Stats:", sa.get_stats())
-    print("System prompt:\n", sa.get_self_prompt())
+    logger.info("Kimlik: %s", sa.answer_who_am_i())
+    logger.debug("Stats: %s", sa.get_stats())
+    logger.debug("System prompt:\n%s", sa.get_self_prompt())

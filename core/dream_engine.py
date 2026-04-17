@@ -4,6 +4,9 @@ import time
 import random
 from datetime import datetime
 import threading
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class DreamEngine:
@@ -211,5 +214,5 @@ class DreamEngine:
 
 
 if __name__ == "__main__":
-    print("DreamEngine test requires memory and intelligence modules.")
-    print("It runs as a daemon thread during sleep cycles.")
+    logger.debug("DreamEngine test requires memory and intelligence modules.")
+    logger.debug("It runs as a daemon thread during sleep cycles.")

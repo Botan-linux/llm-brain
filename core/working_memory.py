@@ -2,6 +2,9 @@ import json
 import os
 from datetime import datetime
 from collections import deque
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class WorkingMemory:
@@ -226,7 +229,8 @@ class WorkingMemory:
         pronouns = {
             "o": None, "bu": None, "şu": None,
             "bunu": None, "onu": None, "şunu": None,
-            "onun": None, "bunlar": None, "onlar": None
+            "onun": None, "bunlar": None, "onlar": None,
+            "it": None, "this": None, "that": None, "these": None, "those": None
         }
 
         resolved = {}
@@ -309,9 +313,9 @@ if __name__ == "__main__":
     wm.add_exchange("Peki değişkenler?", "Değişkenler veri saklar.", "programlama")
     wm.add_exchange("Bu konuyu beğendim", "Sevindim! Başka ne öğrenmek istersin?", None)
 
-    print("Context:", wm.get_full_context())
-    print("Stats:", wm.get_stats())
-    
+    logger.debug("Context: %s", wm.get_full_context())
+    logger.debug("Stats: %s", wm.get_stats())
+
     # Referans çözümleme testi
     resolved = wm.resolve_reference("Bunu daha detaylı anlat")
-    print("Resolved:", resolved)
+    logger.debug("Resolved: %s", resolved)

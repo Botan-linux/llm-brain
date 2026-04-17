@@ -364,18 +364,17 @@ if __name__ == "__main__":
     ]
     
     decision = pfc.make_decision(options, "Kullanıcı karmaşık bir soru sordu", 80, "analytical")
-    print(f"Karar: {decision}")
-    
+    logger.debug("Karar: %s", decision)
+
     # Test: Dürtü kontrolü
     impulse = pfc.evaluate_impulse("HAYIR!", "saldırı", "defensive")
-    print(f"Dürtü kontrolü: {impulse}")
-    
+    logger.debug("Dürtü kontrolü: %s", impulse)
+
     # Test: Plan
     plan = pfc.create_plan("Proje hakkında öğren", [
         {"action": "README oku"},
         {"action": "Kod analiz et"},
         {"action": "Özet çıkar"},
     ])
-    print(f"Plan: {plan}")
-    
-    print(f"Stats: {pfc.get_stats()}")
+    logger.debug("Plan: %s", plan)
+    logger.debug("Stats: %s", pfc.get_stats())

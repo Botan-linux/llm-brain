@@ -3,6 +3,9 @@ import os
 from datetime import datetime
 from collections import Counter
 import re
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class LearningEngine:
@@ -303,6 +306,6 @@ if __name__ == "__main__":
     le.learn_from_exchange("Python hakkında bilgi ver", "Python geniş bir topluluğa sahiptir...", 0.7)
     le.learn_from_exchange("Çok kötü bir cevaptı", "Özür dilerim, daha iyi açıklamaya çalışayım.", -0.8)
 
-    print("Guidance:", le.get_behavioral_guidance("Python hakkında bilgi ver"))
-    print("Style hints:", le.get_learned_style_hints())
-    print("Stats:", le.get_stats())
+    logger.debug("Guidance: %s", le.get_behavioral_guidance("Python hakkında bilgi ver"))
+    logger.debug("Style hints: %s", le.get_learned_style_hints())
+    logger.debug("Stats: %s", le.get_stats())

@@ -23,7 +23,7 @@ class LimbicSystem:
             self.emotional_states["fatigue"] += 0.1
 
         # Uyaran analizi
-        if stimulus_tone == "negatif":
+        if stimulus_tone in ("negatif", "negative"):
             self.emotional_states["stress"] += 0.2
             self.emotional_states["analytical"] += 0.1 # Stres altında odaklanma
         else:

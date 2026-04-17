@@ -1,5 +1,9 @@
 import os
 import json
+from core.logger import get_logger
+from .validators import validate_config
+
+logger = get_logger(__name__)
 
 # Proje kök dizinini bul
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +35,7 @@ def load_config():
                 file_config = json.load(f)
                 config.update(file_config)
         except (json.JSONDecodeError, IOError) as e:
-            print(f"[!] config.json okunamadı: {e}")
+            logger.error(f"config.json okunamadı: {e}")
 
     # 2. Ortam değişkenleri ile override et
     env_overrides = {
@@ -44,10 +48,21 @@ def load_config():
         if env_value is not None:
             config[key] = env_value
 
-    # 3. API key kontrolü
-    if not config["api_key"]:
-        print("[!] Uyarı: LLM API anahtarı ayarlanmamış.")
-        print("[!] config.json dosyasına 'api_key' ekleyin veya LLM_API_KEY ortam değişkenini tanımlayın.")
+    # 3. Yapılandırma doğrulama
+    issues = validate_config(config)
+    for issue in issues:
+        prefix = f"[{issue['field']}] "
+        msg = f"{prefix}{issue['message']}"
+        if issue["level"] == "error":
+            logger.error(msg)
+            if issue["fix"]:
+                logger.error("  → Çözüm: %s", issue["fix"])
+        elif issue["level"] == "warning":
+            logger.warning(msg)
+            if issue["fix"]:
+                logger.warning("  → Çözüm: %s", issue["fix"])
+        else:
+            logger.info(msg)
 
     return config
 

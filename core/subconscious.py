@@ -3,6 +3,9 @@ import time
 import random
 import os
 import json
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 class Subconscious:
     def __init__(self, memory_gateway, intelligence_layer, interval_range=(30, 60)):
@@ -20,7 +23,7 @@ class Subconscious:
 
     def _process_background_thoughts(self):
         """Beyin boşta kaldığında anıları tarar ve içgörü üretir."""
-        print("[*] Bilinçaltı aktif: Anılar arasında bağ kuruluyor...")
+        logger.info("Bilinçaltı aktif: Anılar arasında bağ kuruluyor...")
 
         while self.active:
             # Rastgele aralıkta derin düşünceye dal
@@ -62,7 +65,7 @@ class Subconscious:
                     "insight_number": self._insight_count
                 }, is_critical=False)
 
-                print(f"\n[!] Bilinçaltı yeni bir bağlantı kurdu: {insight[:50]}...")
+                logger.info(f"Bilinçaltı yeni bir bağlantı kurdu: {insight[:50]}...")
 
     def stop(self):
         self.active = False

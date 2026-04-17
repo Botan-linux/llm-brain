@@ -2,6 +2,9 @@ import os
 import json
 from datetime import datetime
 import re
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 class MemoryGateway:
     def __init__(self, storage_path=None):
@@ -93,11 +96,11 @@ class MemoryGateway:
                         with open(path, 'w', encoding='utf-8') as f:
                             json.dump(content, f, indent=4, ensure_ascii=False)
                     except Exception as e:
-                        print(f"[!] Hata: {filename} güncellenemedi: {e}")
+                        logger.error(f"{filename} güncellenemedi: {e}")
 
     def consolidate_memories(self, threshold=0.4):
         """Kısa süreli hafızayı uzun süreli hafızaya taşır veya eler."""
-        print("[*] Hafıza konsolidasyonu (Uyku Evresi) başlatıldı...")
+        logger.info("Hafıza konsolidasyonu (Uyku Evresi) başlatıldı...")
         files = os.listdir(self.short_term_path)
         consolidated_count = 0
         forgotten_count = 0
@@ -131,9 +134,9 @@ class MemoryGateway:
                 os.remove(path)
 
             except Exception as e:
-                print(f"[!] {filename} konsolide edilemedi: {e}")
+                logger.warning(f"{filename} konsolide edilemedi: {e}")
 
-        print(f"[+] Sonuç: {consolidated_count} anı pekiştirildi, {forgotten_count} anı unutuldu.")
+        logger.info(f"Konsolidasyon: {consolidated_count} anı pekiştirildi, {forgotten_count} anı unutuldu.")
         return consolidated_count, forgotten_count
 
     def retrieve_memories(self, limit=10):
