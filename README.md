@@ -160,4 +160,4 @@ Bu proje [LICENSE](LICENSE) dosyasında belirtilen lisans altında korunmaktadı
 
 ---
 
-**p4antom tarafından geliştirilmiştir.**
+**p4antom ve glm tarafından geliştirilmiştir.**
