@@ -161,6 +161,12 @@ class ArtificialBrain:
         lang_analysis = self.language_processor.analyze(stimulus_data)
         detected_topic = lang_analysis["topic"]
 
+        # --- 2.5. KULLANICI TANIMA (Öz-farkındalık) ---
+        detected_name = self.self_awareness.detect_user_name(stimulus_data)
+        if detected_name and self.self_awareness.get_known_user() != detected_name:
+            self.self_awareness.register_user(detected_name)
+            logger.info(f"Kullanıcı tanındı: {detected_name}")
+
         # --- 3. TALAMUS (Dikkat filtresi) ---
         should_focus, score, _ = self.thalamus.filter_stimulus(stimulus_data, self.state["energy"])
         intensity = self.thalamus.calculate_intensity(stimulus_data)

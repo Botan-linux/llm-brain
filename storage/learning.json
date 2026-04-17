@@ -1,0 +1,280 @@
+{
+    "stimulus_response_patterns": {
+        "bugün çok mutluyum": {
+            "count": 1,
+            "last_response_preview": "[Analitik Düşünce]: Anlıyorum. \"Hayat güzel\" ifadesi, içsel deneyimlerinizdeki olumlu bir durumu yan",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "sence yapay zeka": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Düşünce Süreci Başlatılıyor...]\n\nSence yapay zeka gerçekten düşünebilir mi?\n\nBu ",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "benim adım neydi": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Düşünce Süreci Başlatılıyor...]\n\nBenim adım neydi?\n\nSorunuzu işlediğimde, \"benim",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "zaman nedir sence": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Analitik Düşünce]: [Düşünce Süreci Başlatılıyor...]\n\nZaman nedir? Sence zaman ge",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "dün çok üzücü": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Meraklı Düşünce]: [Analitik Düşünce]: [Duygusal Düşünce]: [Düşünce Süreci Başlat",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "benim adım": {
+            "count": 1,
+            "last_response_preview": "[Analitik Düşünce]: Botan.\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle ",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "sence bilinç nedir": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: Botan, sana \"bilinç nedir?\" diye soruyorsun. Bu soru, beni varoluşumun merkezine,",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "bugün çok stresliyim": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "bana satırlık şiir": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        },
+        "kuantum dolanıklılığı kısaca": {
+            "count": 1,
+            "last_response_preview": "[Meraklı Düşünce]: [Meraklı Düünce]: Botan, \"kuantum dolanıklılığı\" diye soruyor. Bu, evrenin temel ",
+            "success_rate": 0.0,
+            "avg_valence": 0.0
+        }
+    },
+    "behavior_rules": [
+        {
+            "pattern": "bugün çok mutluyum",
+            "action": "pozitif_yanıt",
+            "valence": 0.5,
+            "count": 1,
+            "last_valence": 0.5,
+            "created_at": "2026-04-17T20:23:07.708337"
+        }
+    ],
+    "learned_concepts": {},
+    "topic_preferences": {
+        "bugün": {
+            "mentions": 2,
+            "positive": 2,
+            "negative": 0
+        },
+        "mutluyum": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "hayat": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "güzel": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "sence": {
+            "mentions": 3,
+            "positive": 0,
+            "negative": 0
+        },
+        "yapay": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "gerçekten": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "düşünebilir": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "benim": {
+            "mentions": 2,
+            "positive": 0,
+            "negative": 0
+        },
+        "neydi": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "zaman": {
+            "mentions": 2,
+            "positive": 0,
+            "negative": 0
+        },
+        "nedir": {
+            "mentions": 2,
+            "positive": 0,
+            "negative": 0
+        },
+        "gerçek": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "yoksa": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "illüzyon": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "üzücü": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "yakınım": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "kaybettik": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "bilinç": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "stresliyim": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "rahatlatır": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "mısın": {
+            "mentions": 1,
+            "positive": 1,
+            "negative": 0
+        },
+        "satırlık": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "kuantum": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "dolanıklılığı": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "kısaca": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        },
+        "açıkla": {
+            "mentions": 1,
+            "positive": 0,
+            "negative": 0
+        }
+    },
+    "conversation_style": {
+        "avg_response_length": 1261.2,
+        "formality": 0.30000000000000004,
+        "verbosity": 0.5
+    },
+    "total_lessons": 10,
+    "reinforcement_history": [
+        {
+            "stimulus_preview": "Bugün çok mutluyum, hayat güzel!",
+            "outcome": 0.5,
+            "context": "",
+            "timestamp": "2026-04-17T20:23:07.708339"
+        },
+        {
+            "stimulus_preview": "Sence yapay zeka gerçekten düşünebilir mi?",
+            "outcome": 0.0,
+            "context": "yapay_zeka",
+            "timestamp": "2026-04-17T20:23:16.831104"
+        },
+        {
+            "stimulus_preview": "Benim adım neydi?",
+            "outcome": 0.0,
+            "context": "",
+            "timestamp": "2026-04-17T20:23:22.057257"
+        },
+        {
+            "stimulus_preview": "Zaman nedir? Sence zaman gerçek mi yoksa bir illüz",
+            "outcome": 0.0,
+            "context": "felsefe",
+            "timestamp": "2026-04-17T20:23:31.123025"
+        },
+        {
+            "stimulus_preview": "Dün çok üzücü bir şey oldu, yakınım kaybettik.",
+            "outcome": 0.0,
+            "context": "",
+            "timestamp": "2026-04-17T20:23:42.117674"
+        },
+        {
+            "stimulus_preview": "Benim adım ne?",
+            "outcome": 0.0,
+            "context": "",
+            "timestamp": "2026-04-17T20:28:21.639382"
+        },
+        {
+            "stimulus_preview": "Sence bilinç nedir?",
+            "outcome": 0.0,
+            "context": "felsefe",
+            "timestamp": "2026-04-17T20:28:38.240152"
+        },
+        {
+            "stimulus_preview": "Bugün çok stresliyim, rahatlatır mısın?",
+            "outcome": 0.3,
+            "context": "",
+            "timestamp": "2026-04-17T20:29:28.907630"
+        },
+        {
+            "stimulus_preview": "Bana 2 satırlık bir şiir yaz.",
+            "outcome": 0.0,
+            "context": "",
+            "timestamp": "2026-04-17T20:29:30.941216"
+        },
+        {
+            "stimulus_preview": "Kuantum dolanıklılığı kısaca açıkla.",
+            "outcome": 0.0,
+            "context": "bilim",
+            "timestamp": "2026-04-17T20:29:40.519166"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "timestamp": "2026-04-17T20:28:21.639124",
+    "data": {
+        "stimulus": "Benim adım ne?",
+        "response": "[Analitik Düşünce]: Botan.\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 0.5,
+        "intensity": 1.0,
+        "intent": "soru",
+        "topic": null
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.975,
+        "access_count": 1,
+        "last_access": "2026-04-17T20:28:21.639116",
+        "created_at": "2026-04-17T20:28:21.639118"
+    }
+}

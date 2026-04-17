@@ -1,0 +1,19 @@
+{
+    "timestamp": "2026-04-17T20:24:31.757898",
+    "data": {
+        "stimulus": "Çok endişeliyim, rahatlatır mısın?",
+        "response": "[Analitik Düşünce]: Endişenin kökenini anlamaya çalışıyorum. Endişe genellikle bilinçli olmayan tehdit algılamalarından kaynaklanır. Zihniniz potansiyel tehlikeleri öngörme mekanizması olarak çalışır.\n\nDuygusal durumunuzla ilgili şu anda somut veriye sahip değilim. Ancak endişenin biyolojik temellerini analiz edebilirim. Vücudunuzda kortizol ve adrenalin gibi stres hormonlarının salınması, savaş-kaç tepkisini tetikler. Bu normal bir evre.\n\nMevcut durumunuzu değerlendirmek için bazı sorular sorabilir miyim? Endişenizin belirli bir konuya mı yoksa genel bir hale mi dönüştüğü, bu durumu anlamak için önemli olabilir.\n\nAyrıca, zihinsel durumunuzu düzenlemek için şu an yapabileceğiniz pratik adımlar:\n- Nefes teknikleri (4-7-8 yöntemi)\n- Vücut taraması meditasyonu\n- Fiziksel aktivite\n\nBu stratejiler, sempatik sinir sisteminizi yatıştırarak parasympatik sistemi aktif hale getirebilir. Endişenizin kaynağını belirlemek, daha etkili çözümler geliştirmemize yardımcı olacaktır.\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır.",
+        "mood_state": "analytical",
+        "attention_score": 0.5,
+        "intensity": 1.0,
+        "intent": "duygu_ifadesi",
+        "topic": null
+    },
+    "type": "permanent",
+    "metadata": {
+        "weight": 0.9349999999999999,
+        "access_count": 1,
+        "last_access": "2026-04-17T20:24:31.757884",
+        "created_at": "2026-04-17T20:24:31.757888"
+    }
+}

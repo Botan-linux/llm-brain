@@ -12,16 +12,139 @@
             "recall_count": 0,
             "last_recalled": null,
             "created_at": "2026-04-17T20:02:00.016277"
+        },
+        {
+            "id": 1,
+            "event": "Bugün çok mutluyum, hayat güzel!",
+            "emotion_type": "pozitif",
+            "intensity": 1.0,
+            "valence": 1.0,
+            "emotional_weight": 1.0,
+            "context": "",
+            "is_flashbulb": true,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:23:07.708155"
+        },
+        {
+            "id": 2,
+            "event": "Sence yapay zeka gerçekten düşünebilir mi?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "yapay_zeka",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:23:16.830512"
+        },
+        {
+            "id": 3,
+            "event": "Benim adım neydi?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:23:22.057022"
+        },
+        {
+            "id": 4,
+            "event": "Zaman nedir? Sence zaman gerçek mi yoksa bir illüzyon mu?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "felsefe",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:23:31.122445"
+        },
+        {
+            "id": 5,
+            "event": "Benim adım neydi? Hatırlıyor musun?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:24:06.559513"
+        },
+        {
+            "id": 6,
+            "event": "Benim adım ne?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:27:22.933915"
+        },
+        {
+            "id": 7,
+            "event": "Benim adım ne?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:28:21.639288"
+        },
+        {
+            "id": 8,
+            "event": "Sence bilinç nedir?",
+            "emotion_type": "nötr",
+            "intensity": 0.0,
+            "valence": 0.0,
+            "emotional_weight": 0,
+            "context": "felsefe",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:28:38.239554"
+        },
+        {
+            "id": 9,
+            "event": "Bugün çok stresliyim, rahatlatır mısın?",
+            "emotion_type": "pozitif",
+            "intensity": 0.6,
+            "valence": 0.6,
+            "emotional_weight": 0.48,
+            "context": "",
+            "is_flashbulb": false,
+            "recall_count": 0,
+            "last_recalled": null,
+            "created_at": "2026-04-17T20:29:28.907011"
         }
     ],
     "emotional_biases": {
-        "günlük": {
+        "genel": {
+            "positive_hits": 1,
+            "negative_hits": 0,
+            "total": 2,
+            "avg_valence": 0.3
+        },
+        "felsefe": {
             "positive_hits": 0,
             "negative_hits": 0,
             "total": 1,
             "avg_valence": 0.0
         }
     },
-    "total_encoded": 1,
+    "total_encoded": 10,
     "dominant_emotion": "nötr"
 }

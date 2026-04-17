@@ -26,10 +26,73 @@
             "emotional_state": "analytical",
             "alternatives_count": 1,
             "timestamp": "2026-04-17T13:58:52.007534"
+        },
+        {
+            "context": "Bugün çok mutluyum, hayat güzel!",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.85,
+            "energy_at_decision": 98,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:23:03.755630"
+        },
+        {
+            "context": "Sence yapay zeka gerçekten düşünebilir mi?",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 87.6,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:23:07.708712"
+        },
+        {
+            "context": "Benim adım ne?",
+            "selected_action": "derin_yanıt",
+            "confidence": 0.85,
+            "energy_at_decision": 90.0,
+            "emotional_state": "analytical",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:28:21.308319"
+        },
+        {
+            "context": "Sence bilinç nedir?",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 81.75,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:28:21.639652"
+        },
+        {
+            "context": "Bugün çok stresliyim, rahatlatır mısın?",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 100,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:28:38.244369"
+        },
+        {
+            "context": "Bana 2 satırlık bir şiir yaz.",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 91.25,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:29:28.908170"
+        },
+        {
+            "context": "Kuantum dolanıklılığı kısaca açıkla.",
+            "selected_action": "öğrenme_odaklı",
+            "confidence": 0.85,
+            "energy_at_decision": 83.0,
+            "emotional_state": "curious",
+            "alternatives_count": 2,
+            "timestamp": "2026-04-17T20:29:30.941585"
         }
     ],
     "impulse_threshold": 0.7,
-    "cognitive_flexibility": 0.5,
+    "cognitive_flexibility": 0.501,
     "plan_memory": [
         {
             "id": 1,
@@ -86,6 +149,6 @@
             "blocked": false
         }
     ],
-    "total_decisions": 3,
+    "total_decisions": 10,
     "self_control_score": 0.5900000000000001
 }

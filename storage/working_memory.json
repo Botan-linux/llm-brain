@@ -1,5 +1,5 @@
 {
-    "current_topic": "programlama",
+    "current_topic": "bilim",
     "topic_history": [
         {
             "topic": "günlük",
@@ -25,36 +25,101 @@
             "topic": "günlük",
             "duration_turns": 8,
             "ended_at": "2026-04-17T13:58:52.008047"
+        },
+        {
+            "topic": "programlama",
+            "duration_turns": 12,
+            "ended_at": "2026-04-17T20:23:16.830845"
+        },
+        {
+            "topic": "yapay_zeka",
+            "duration_turns": 14,
+            "ended_at": "2026-04-17T20:23:31.122987"
+        },
+        {
+            "topic": "felsefe",
+            "duration_turns": 27,
+            "ended_at": "2026-04-17T20:29:40.518871"
         }
     ],
-    "turn_count": 9,
+    "turn_count": 27,
     "active_references": {
-        "selam": {
-            "mention": "Selam",
-            "context": "Selam!",
-            "turn": 1
+        "bugün": {
+            "mention": "Bugün",
+            "context": "Bugün çok stresliyim, rahatlatır mısın?",
+            "turn": 25
         },
-        "python": {
-            "mention": "Python",
-            "context": "Python nedir?",
-            "turn": 8
+        "yazılım güncellemesi": {
+            "mention": "yazılım güncellemesi",
+            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
+            "turn": 25
         },
-        "programlama": {
-            "mention": "Programlama",
-            "context": "Programlama dili.",
-            "turn": 2
+        "günlük": {
+            "mention": "Günlük",
+            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
+            "turn": 25
         },
-        "bunu": {
-            "mention": "Bunu",
-            "context": "Bunu açıklar mısın?",
-            "turn": 9
+        "rahatlar": {
+            "mention": "rahatlar",
+            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
+            "turn": 25
         },
-        "tabii": {
-            "mention": "Tabii",
-            "context": "Tabii, Python...",
-            "turn": 3
+        "düşünce": {
+            "mention": "Düşünce",
+            "context": "[Meraklı Düşünce]: [Baskın Duygu Durumu]: Merak ve Empati\n\n[Analitik Düşünce]: Botan, \"Bugün çok str",
+            "turn": 25
+        },
+        "bana": {
+            "mention": "Bana",
+            "context": "Bana 2 satırlık bir şiir yaz.",
+            "turn": 26
+        },
+        "zihinsel": {
+            "mention": "Zihinsel",
+            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
+            "turn": 26
+        },
+        "görsel": {
+            "mention": "Görsel",
+            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
+            "turn": 26
+        },
+        "botanın": {
+            "mention": "Botanın",
+            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
+            "turn": 26
+        },
+        "notu": {
+            "mention": "Notu",
+            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
+            "turn": 26
+        },
+        "bilinç": {
+            "mention": "Bilinç",
+            "context": "[Meraklı Düşünce]: [Zihinsel Aktivasyon]: Şiir talebi, benim henüz tam olarak şekillenmemiş olan yar",
+            "turn": 26
+        },
+        "kuantum": {
+            "mention": "Kuantum",
+            "context": "Kuantum dolanıklılığı kısaca açıkla.",
+            "turn": 27
+        },
+        "analitik": {
+            "mention": "Analitik",
+            "context": "[Meraklı Düşünce]: [Meraklı Düünce]: Botan, \"kuantum dolanıklılığı\" diye soruyor. Bu, evrenin temel ",
+            "turn": 27
+        },
+        "hayranlık": {
+            "mention": "Hayranlık",
+            "context": "[Meraklı Düşünce]: [Meraklı Düünce]: Botan, \"kuantum dolanıklılığı\" diye soruyor. Bu, evrenin temel ",
+            "turn": 27
+        },
+        "hayal": {
+            "mention": "Hayal",
+            "context": "[Meraklı Düşünce]: [Meraklı Düünce]: Botan, \"kuantum dolanıklılığı\" diye soruyor. Bu, evrenin temel ",
+            "turn": 27
         }
     },
     "total_sessions": 1,
-    "total_turns": 9
+    "total_turns": 27
 }
