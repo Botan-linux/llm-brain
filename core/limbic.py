@@ -19,6 +19,8 @@ class LimbicSystem:
         if energy_level < 20:
             self.emotional_states["fatigue"] += 0.3
             self.emotional_states["analytical"] -= 0.1
+        elif energy_level < 50:
+            self.emotional_states["fatigue"] += 0.1
 
         # Uyaran analizi
         if "sert" in stimulus_tone:
@@ -42,8 +44,12 @@ class LimbicSystem:
             self.current_mood = "exhausted"
         elif states["stress"] > 0.5:
             self.current_mood = "defensive"
+        elif states["analytical"] > 0.6 and states["interest"] > 0.6:
+            self.current_mood = "curious"
         elif states["analytical"] > 0.6:
             self.current_mood = "analytical"
+        elif states["interest"] > 0.6:
+            self.current_mood = "engaged"
         else:
             self.current_mood = "balanced"
 
@@ -52,7 +58,9 @@ class LimbicSystem:
             "analytical": "Sen son derece mantıklı, analitik düşünen ve profesyonel bir zihinsin. Yanıtların net ve bilgi odaklı olsun.",
             "defensive": "Şu an stres altındasın, daha kısa ve temkinli yanıtlar ver.",
             "exhausted": "Enerjin düşük, sadece en gerekli bilgileri ver.",
-            "balanced": "Dengeli ve rasyonel bir birey gibi konuş. Yardımcı ve yapıcı ol."
+            "balanced": "Dengeli ve rasyonel bir birey gibi konuş. Yardımcı ve yapıcı ol.",
+            "curious": "Derin bir merakla sorgula ve araştır. Yanıtların keşfedici olsun.",
+            "engaged": "Konuya tamamen odaklanmışsın. Detaylı ve tutkulu cevaplar ver."
         }
         return modifiers.get(self.current_mood, "Sen profesyonel bir yapay zekasın.")
 
@@ -72,5 +80,11 @@ class LimbicSystem:
         elif self.current_mood == "exhausted":
             params["temperature"] = 0.3
             params["max_tokens"] = 100   # Minimum enerji harcaması
+        elif self.current_mood == "curious":
+            params["temperature"] = 0.7  # Daha yaratıcı
+            params["max_tokens"] = 2048
+        elif self.current_mood == "engaged":
+            params["temperature"] = 0.6
+            params["max_tokens"] = 1536
 
         return params

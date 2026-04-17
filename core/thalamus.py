@@ -1,4 +1,5 @@
 import re
+import math
 
 class Thalamus:
     def __init__(self):
@@ -10,10 +11,18 @@ class Thalamus:
             "acı": 1.0,      # Negatif geri bildirim en yüksek öncelik
             "ödül": 0.8,     # Pozitif pekiştirme
             "p4antom": 1.0,  # Yaratıcı her zaman en üst öncelik
+            "botan": 1.0,    # Yaratıcı her zaman en üst öncelik
             "uyu": 1.0,
-            "kimim": 0.9     # Öz-farkındalık sorguları
+            "sleep": 1.0,
+            "kimim": 0.9,    # Öz-farkındalık sorguları
+            "yardım": 0.7,
+            "nasıl": 0.6,
+            "neden": 0.6,
+            "ne": 0.4,
         }
         self.attention_threshold = 0.3 # Bu eşiğin altındaki uyaranlar 'gürültü' kabul edilir
+        self._total_filtered = 0
+        self._total_passed = 0
 
     def calculate_intensity(self, stimulus_data):
         """Uyarının şiddetini analiz eder."""
@@ -21,14 +30,24 @@ class Thalamus:
         if stimulus_data.isupper(): intensity += 0.5  # Bağırarak konuşma
         if "!" in stimulus_data: intensity += 0.3      # Heyecan/Önem
         if len(stimulus_data) > 100: intensity += 0.2 # Karmaşıklık
+        if len(stimulus_data) > 300: intensity += 0.3 # Çok karmaşık
+        # Birden fazla soru işareti
+        if stimulus_data.count("?") > 1: intensity += 0.2
         return min(2.5, intensity)
 
     def filter_stimulus(self, stimulus_data, current_energy):
-        """Uyarının önemini analiz eder ve odaklanıp odaklanmayacağına karar verir."""
+        """Uyaranın önemini analiz eder ve odaklanıp odaklanmayacağına karar verir."""
 
         # 1. Ham metin analizi (Basit gürültü filtresi)
         if len(stimulus_data.strip()) < 2:
+            self._total_filtered += 1
             return False, 0.0, "Gürültü: Çok kısa uyaran."
+
+        # Tekrar kontrolü (aynı uyaran ardışık gelirse)
+        if hasattr(self, '_last_stimulus') and stimulus_data.strip() == self._last_stimulus:
+            self._total_filtered += 1
+            return False, 0.0, "Gürültü: Tekrar eden uyaran."
+        self._last_stimulus = stimulus_data.strip()
 
         # 2. Öncelik skoru hesaplama
         score = 0.5 # Varsayılan skor (Nötr)
@@ -37,7 +56,6 @@ class Thalamus:
         is_low_energy = current_energy < 20
 
         # Enerji düşükse beyin daha seçici olur (Eşik yükselir)
-        # Normal eşik: 0.3, Enerji 0 iken eşik: 0.7
         effective_threshold = self.attention_threshold + (1.0 - (current_energy / 100.0)) * 0.4
 
         # Kritik komutları kontrol et
@@ -46,13 +64,25 @@ class Thalamus:
             if word in stimulus_lower:
                 score = max(score, weight)
 
+        # Uzunluk skoru ekle
+        word_count = len(stimulus_data.split())
+        if word_count > 10:
+            score += 0.1
+        if word_count > 20:
+            score += 0.1
+
         # 3. Sonuç: Odaklanmalı mıyız?
-        # Düşük enerjide sadece word weights (öncelikli kelimeler) kurtarabilir
         should_focus = score >= effective_threshold
 
-        if is_low_energy and not any(k in stimulus_lower for k in ["p4antom", "uyu", "kritik"]):
-            if score < 0.9: # Sadece en üst seviye uyarana izin ver
+        if is_low_energy and not any(k in stimulus_lower for k in ["p4antom", "botan", "uyu", "sleep", "kritik"]):
+            if score < 0.9:
+                self._total_filtered += 1
                 return False, score, "Enerji Koruma: Beyin dinlenmeye ihtiyaç duyuyor."
+
+        if should_focus:
+            self._total_passed += 1
+        else:
+            self._total_filtered += 1
 
         status = "Odaklanıldı" if should_focus else "Göz ardı edildi (Düşük Önem/Düşük Enerji)"
         return should_focus, score, status
@@ -63,5 +93,20 @@ class Thalamus:
             self.attention_threshold = 0.4 # Daha seçici
         elif mood == "defensive":
             self.attention_threshold = 0.2 # Her şeye karşı tetikte
+        elif mood == "curious":
+            self.attention_threshold = 0.2 # Meraklı, her şeye açık
+        elif mood == "exhausted":
+            self.attention_threshold = 0.6 # Çoğu şeyi göz ardı eder
         else:
             self.attention_threshold = 0.3 # Normal seyrinde
+
+    def get_stats(self):
+        """Talamus istatistiklerini döndürür."""
+        total = self._total_passed + self._total_filtered
+        return {
+            "total_stimuli": total,
+            "passed": self._total_passed,
+            "filtered": self._total_filtered,
+            "pass_rate": (self._total_passed / total * 100) if total > 0 else 0,
+            "current_threshold": self.attention_threshold
+        }

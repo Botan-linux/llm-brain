@@ -1,0 +1,6 @@
+{
+    "name": "gemini-3-flash",
+    "api_key": "",
+    "base_url": "http://127.0.0.1:8045",
+    "version": "2023-06-01"
+}

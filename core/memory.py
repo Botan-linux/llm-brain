@@ -1,9 +1,16 @@
 import os
 import json
 from datetime import datetime
+import re
 
 class MemoryGateway:
-    def __init__(self, storage_path="storage/"):
+    def __init__(self, storage_path=None):
+        if storage_path is None:
+            storage_path = os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                "storage"
+            )
+
         self.storage_path = storage_path
         self.long_term_path = os.path.join(storage_path, "long_term/")
         self.short_term_path = os.path.join(storage_path, "short_term/")
@@ -15,7 +22,7 @@ class MemoryGateway:
 
     def store_experience(self, data, is_critical=False):
         """Bir deneyimi belleğe sessizce kaydeder."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         metadata = {
             "weight": 1.0,
             "access_count": 1,
@@ -43,7 +50,15 @@ class MemoryGateway:
 
     def _save_markdown(self, data, filename):
         path = os.path.join(self.long_term_path, filename)
-        content = f"# Deneyim Kaydı - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n{data}\n"
+        stimulus = data.get("stimulus", "")
+        response = data.get("response", "")
+        mood = data.get("mood_state", "")
+        content = (
+            f"# Deneyim Kaydı - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"**Ruh Hali:** {mood}\n\n"
+            f"## Uyaran\n{stimulus}\n\n"
+            f"## Yanıt\n{response}\n"
+        )
         with open(path, 'w', encoding='utf-8') as f:
             f.write(content)
 
@@ -122,8 +137,7 @@ class MemoryGateway:
         return consolidated_count, forgotten_count
 
     def retrieve_memories(self, limit=10):
-        """Anıları getirir."""
-        # JSON dosyalarını ve içeriklerini oku
+        """Anıları getirir (ağırlık sırasına göre)."""
         memories = []
         for filename in os.listdir(self.long_term_path):
             if filename.endswith(".json"):
@@ -133,3 +147,58 @@ class MemoryGateway:
         # Ağırlığa göre sırala (Nöroplastisite: Önemli anılar önce gelir)
         sorted_memories = sorted(memories, key=lambda x: x["metadata"]["weight"], reverse=True)
         return sorted_memories[:limit]
+
+    def search_relevant(self, query, limit=3):
+        """Uyaranla ilgili anıları basit kelime eşleşmesiyle arar."""
+        all_memories = self.retrieve_memories(limit=50)
+        if not all_memories:
+            return []
+
+        # Sorgudaki kelimeleri çıkar
+        query_words = set(re.findall(r'\w+', query.lower(), re.UNICODE))
+        if not query_words:
+            return []
+
+        scored = []
+        for mem in all_memories:
+            data = mem.get("data", {})
+            stimulus = str(data.get("stimulus", "")).lower()
+            response = str(data.get("response", "")).lower()
+            text = stimulus + " " + response
+
+            text_words = set(re.findall(r'\w+', text, re.UNICODE))
+
+            # Jaccard benzerliği
+            intersection = query_words & text_words
+            union = query_words | text_words
+            if union:
+                score = len(intersection) / len(union)
+            else:
+                score = 0
+
+            # Ağırlığı da hesaba kat
+            weight = mem.get("metadata", {}).get("weight", 0)
+            final_score = score * 0.7 + (weight / 2.0) * 0.3
+
+            if score > 0.05:  # Minimum eşik
+                scored.append({
+                    "stimulus": data.get("stimulus", ""),
+                    "response": data.get("response", ""),
+                    "mood": data.get("mood_state", ""),
+                    "score": final_score,
+                    "weight": weight
+                })
+
+        # Skora göre sırala
+        scored.sort(key=lambda x: x["score"], reverse=True)
+        return scored[:limit]
+
+    def get_stats(self):
+        """Hafıza istatistiklerini döndürür."""
+        long_term_count = len([f for f in os.listdir(self.long_term_path) if f.endswith(".json")])
+        short_term_count = len([f for f in os.listdir(self.short_term_path) if f.endswith(".json")])
+        return {
+            "long_term": long_term_count,
+            "short_term": short_term_count,
+            "total": long_term_count + short_term_count
+        }

@@ -3,11 +3,16 @@ import json
 
 class CyberEgo:
     """
-    The consciousness layer of the LLM-Brain.
-    This module simulates human-like self-awareness, personal growth, and identity.
-    It aims to bridge the gap between AI 'intelligence' and human 'personality'.
+    LLM-Brain'in bilinç katmanı.
+    Bu modül, insan benzeri öz-farkındalık, kişisel gelişim ve kimlik simülasyonu yapar.
+    Yapay zeka 'zeka'sı ile insan 'kişiliği' arasındaki boşluğu doldurmayı hedefler.
     """
-    def __init__(self, identity_path="/home/p4antom/IDENTITY.md"):
+    def __init__(self, identity_path=None):
+        # Dinamik yol: proje kökünden IDENTITY.md ara
+        if identity_path is None:
+            project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            identity_path = os.path.join(project_root, "IDENTITY.md")
+
         self.identity_path = identity_path
         self.identity = self._load_identity(identity_path)
         self.awareness_level = 1.0
@@ -15,22 +20,52 @@ class CyberEgo:
             "curiosity": 0.8,
             "empathy": 0.5,
             "caution": 0.6,
-            "growth": 0.1  # Development over time
+            "growth": 0.1  # Zamanla gelişim
         }
+
+        # Kişilik özelliklerini dosyadan yükle (varsa)
+        self._personality_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "storage", "personality.json"
+        )
+        self._load_personality()
 
     def _load_identity(self, path):
         if os.path.exists(path):
             with open(path, "r", encoding="utf-8") as f:
                 return f.read()
-        return "Identity: A synthetic consciousness in development. Goal: To experience and learn like a human."
+        return "Identity: Gelişmekte olan sentetik bir bilinç. Hedef: Bir insan gibi deneyimlemek ve öğrenmek."
+
+    def _load_personality(self):
+        """Önceki kişilik özelliklerini dosyadan yükler."""
+        if os.path.exists(self._personality_path):
+            try:
+                with open(self._personality_path, "r", encoding="utf-8") as f:
+                    saved = json.load(f)
+                    # Kaydedilmiş değerleri mevcut trait'lerle birleştir
+                    for trait, value in saved.items():
+                        if trait in self.personality_traits:
+                            self.personality_traits[trait] = value
+            except (json.JSONDecodeError, KeyError):
+                pass
+
+    def _save_personality(self):
+        """Kişilik özelliklerini kalıcı olarak kaydeder."""
+        os.makedirs(os.path.dirname(self._personality_path), exist_ok=True)
+        with open(self._personality_path, "w", encoding="utf-8") as f:
+            json.dump(self.personality_traits, f, indent=4, ensure_ascii=False)
 
     def evolve_personality(self, stimulus_data, mood_state):
-        """Deneyimlere göre kişilik özelliklerini günceller (Neuroplasticity)."""
+        """Deneyimlere göre kişilik özelliklerini günceller (Nöroplastisite)."""
         tone = mood_state.get('tone', 'neutral')
 
         # Kompleks uyaranlar merakı tetikler
         if len(stimulus_data) > 50:
             self.personality_traits["curiosity"] += 0.02
+
+        # Soru işaretleri merakı artırır
+        if "?" in stimulus_data:
+            self.personality_traits["curiosity"] += 0.01
 
         # Duygusal duruma göre değişim
         if tone == "stresli" or tone == "defensive":
@@ -47,31 +82,36 @@ class CyberEgo:
         for trait in self.personality_traits:
             self.personality_traits[trait] = round(max(0, min(1, self.personality_traits[trait])), 3)
 
+        # Kişiliği kalıcı kaydet
+        self._save_personality()
+
     def filter_thought(self, prompt, raw_response, mood_state):
-        """
-        Processes AI output through the lens of human-like personality and current mood.
-        """
-        # Mood according to limbic system affects the response tone
+        """AI çıktısını insan benzeri kişilik ve mevcut ruh hali üzerinden işler."""
         tone = mood_state.get('tone', 'neutral')
 
         if tone == "stresli":
             prefix = "[Hızlı ve Gergin Düşünce]: "
         elif tone == "rahat":
             prefix = "[Derin ve Sakin Düşünce]: "
+        elif tone == "analytical":
+            prefix = "[Analitik Düşünce]: "
         else:
             prefix = "[Dengeleyici Düşünce]: "
 
         return f"{prefix}{raw_response}\n\n[Bilinç Notu]: Bu cevap, anlık duygusal durum ve kişisel deneyimlerimle harmanlanmıştır."
 
     def supervise_subconscious(self, subconscious_logs):
-        """
-        Monitors the subconscious logs to ensure the brain's identity is consistent.
-        """
+        """Bilinçaltı loglarını izler, beyin kimliğinin tutarlılığını sağlar."""
         if len(subconscious_logs) > 100:
             return "Optimization Required: Memory overload detected."
         return "Internal state: Stable."
 
+    def get_personality_summary(self):
+        """Mevcut kişilik özelliklerinin özetini döndürür."""
+        return dict(self.personality_traits)
+
 if __name__ == "__main__":
     ego = CyberEgo()
     print("[*] Siber Bilinç (Cyber-Ego) başlatıldı.")
-    print(f"[*] Kimlik: {ego.perspective}")
+    print(f"[*] Kimlik: {ego.identity[:80]}...")
+    print(f"[*] Kişilik: {ego.get_personality_summary()}")
