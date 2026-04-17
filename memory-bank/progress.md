@@ -13,6 +13,9 @@
 | 2026-04-18 | .z-ai/ dizin sistemi | 4 dosyaya bölündü: rules, quick-start, file-map, session-protocol |
 | 2026-04-18 | checkpoint.md | Anlık durum görüntüsü sistemi eklendi |
 | 2026-04-18 | Bağlam kurtarma | Orta oturum bağlam kaybı için hızlı okuma mekanizması eklendi |
+| 2026-04-18 | Token yönetimi | .z-ai/tokens.md + KURAL 9 + git credential store |
+| 2026-04-18 | Oku-Anla sistemi | KURAL 10: oturum değişimi + bağlam kaybı protokolü |
+| 2026-04-18 | GitHub push | Commit 667d2da pushlandı (141 dosya)
 
 ## Devam Eden
 | Görev | Öncelik | Bağımlılık |
@@ -20,7 +23,7 @@
 | REST API (api.py) | Yüksek | Yok |
 | Dockerfile | Yüksek | api.py |
 | .env yönetimi | Yüksek | Dockerfile |
-| GitHub push | Yüksek | Dockerfile + api.py |
+| GitHub push | Yüksek | (son push yapıldı 667d2da) |
 | Render.com deploy | Orta | GitHub push |
 | cron-job keepalive | Orta | Render deploy |
 
