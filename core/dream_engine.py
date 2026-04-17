@@ -33,6 +33,7 @@ class DreamEngine:
         self.insights = []
         self.creative_ideas = []
         self.problems_solved = []
+        self._lock = threading.Lock()
 
         self._dream_count = 0
         self._rem_phase = "NREM"  # NREM veya REM
@@ -109,11 +110,11 @@ class DreamEngine:
             }
 
             self.dream_log.append(dream_record)
-            self.insights.append(insight_short)
-
-            # İçgörü listesini sınırla
-            if len(self.insights) > 30:
-                self.insights = self.insights[-30:]
+            with self._lock:
+                self.insights.append(insight_short)
+                # İçgörü listesini sınırla
+                if len(self.insights) > 30:
+                    self.insights = self.insights[-30:]
             if len(self.dream_log) > 50:
                 self.dream_log = self.dream_log[-50:]
 

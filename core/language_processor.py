@@ -66,7 +66,7 @@ class LanguageProcessor:
             "duygu_ifadesi": {
                 "patterns": [
                     r"^(çok|çoktan|harika|mükemmel|berbat|korkunç|inanılmaz|süper|güzel|kötü)",
-                    r"(seviyorum|hoduklanıyorum|korkuyorum|endişeliyim|mutluyum|üzgünüm|sinirliyim|heyecanlıyım)\b"
+                    r"(seviyorum|rahatsızlanıyorum|korkuyorum|endişeliyim|mutluyum|üzgünüm|sinirliyim|heyecanlıyım)\b"
                 ],
                 "weight": 0.7
             },

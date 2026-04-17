@@ -2,6 +2,7 @@ import threading
 import time
 import random
 import os
+import json
 
 class Subconscious:
     def __init__(self, memory_gateway, intelligence_layer, interval_range=(30, 60)):
@@ -9,6 +10,7 @@ class Subconscious:
         self.intelligence = intelligence_layer
         self.active = True
         self.insights = []
+        self._lock = threading.Lock()
         self.interval_range = interval_range
         self._insight_count = 0
 
@@ -46,11 +48,11 @@ class Subconscious:
 
             if insight and "hata" not in insight.lower() and "tıkanıklık" not in insight.lower():
                 self._insight_count += 1
-                self.insights.append(insight)
-
-                # Son 20 içgörüyü tut
-                if len(self.insights) > 20:
-                    self.insights = self.insights[-20:]
+                with self._lock:
+                    self.insights.append(insight)
+                    # Son 20 içgörüyü tut
+                    if len(self.insights) > 20:
+                        self.insights = self.insights[-20:]
 
                 # Bu içgörüyü kalıcı belleğe kaydet
                 self.memory.store_experience({

@@ -68,10 +68,10 @@ class CyberEgo:
             self.personality_traits["curiosity"] += 0.01
 
         # Duygusal duruma göre değişim
-        if tone == "stresli" or tone == "defensive":
+        if tone == "defensive":
             self.personality_traits["caution"] += 0.05
             self.personality_traits["empathy"] -= 0.01
-        elif tone == "rahat" or tone == "balanced":
+        elif tone == "balanced" or tone == "engaged":
             self.personality_traits["empathy"] += 0.02
             self.personality_traits["caution"] -= 0.03
 
@@ -89,12 +89,16 @@ class CyberEgo:
         """AI çıktısını insan benzeri kişilik ve mevcut ruh hali üzerinden işler."""
         tone = mood_state.get('tone', 'neutral')
 
-        if tone == "stresli":
+        if tone == "defensive":
             prefix = "[Hızlı ve Gergin Düşünce]: "
-        elif tone == "rahat":
+        elif tone == "balanced" or tone == "engaged":
             prefix = "[Derin ve Sakin Düşünce]: "
         elif tone == "analytical":
             prefix = "[Analitik Düşünce]: "
+        elif tone == "exhausted":
+            prefix = "[Yorgun Düşünce]: "
+        elif tone == "curious":
+            prefix = "[Meraklı Düşünce]: "
         else:
             prefix = "[Dengeleyici Düşünce]: "
 

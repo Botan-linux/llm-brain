@@ -149,12 +149,19 @@ class ReflexSystem:
         """
         text_lower = stimulus.lower().strip()
 
+        # Duygu durumuna göre öncelik ayarla
+        emotion_multiplier = 1.0
+        if emotional_state in ["defensive", "exhausted"]:
+            emotion_multiplier = 1.3  # Stresliyken tehdit refleksleri daha hassas
+        elif emotional_state in ["curious", "engaged"]:
+            emotion_multiplier = 1.1  # Meraklıyken kimlik/selamlama refleksleri artar
+
         # 1. Yüksek öncelikli uyarılar önce kontrol edilir
         reflexes = sorted(
             list(self.natural_reflexes.items()) + 
-            [(k, {"triggers": [v["trigger"]], "responses": v["responses"], "priority": v["priority"]})
+            [(k, {"triggers": [v["trigger"]], "responses": v["responses"], "priority": v["priority"] * emotion_multiplier})
              for k, v in self.conditioned_reflexes.items()],
-            key=lambda x: x[1]["priority"],
+            key=lambda x: x[1]["priority"] * emotion_multiplier,
             reverse=True
         )
 

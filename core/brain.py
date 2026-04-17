@@ -16,6 +16,7 @@ from core.learning import LearningEngine
 from core.dream_engine import DreamEngine
 from core.self_awareness import SelfAwareness
 from core.reflex import ReflexSystem, InnerWorldModel, GoalSystem
+from core.subconscious import Subconscious
 
 
 class ArtificialBrain:
@@ -66,6 +67,7 @@ class ArtificialBrain:
         self.learning = LearningEngine()
         self.dream_engine = DreamEngine(self.memory, self.intelligence, self.emotional_memory)
         self.self_awareness = SelfAwareness()
+        self.subconscious = Subconscious(self.memory, self.intelligence)
 
         # === Faz 3: Otonom Davranış ===
         self.reflex = ReflexSystem()
@@ -185,9 +187,10 @@ class ArtificialBrain:
 
         # --- 8. BİLİNÇALTI FISILDAMASI ---
         subconscious_whisper = ""
-        if self.dream_engine.insights:
-            recent_insight = self.dream_engine.insights.pop()
-            subconscious_whisper = f"\n[İçsel Sezgi]: {recent_insight}"
+        with self.dream_engine._lock:
+            if self.dream_engine.insights:
+                recent_insight = self.dream_engine.insights.pop()
+                subconscious_whisper = f"\n[İçsel Sezgi]: {recent_insight}"
 
         # --- 9. ÖZ-FARKINDALIK (Meta-biliş) ---
         user_intent = self.self_awareness.guess_user_intent(stimulus_data, lang_analysis)
@@ -211,6 +214,14 @@ class ArtificialBrain:
         # Tüm bağlamları birleştir
         full_context = self_identity + "\n\n"
         full_context += f"[Mevcut Durum]: {system_instruction}\n"
+
+        # Prefrontal kararını bağlama ekle
+        if decision.get("action") == "hızlı_yanıt":
+            full_context += "[Prefrontal Kararı]: Kısa ve öz yanıt ver. Gereksiz detaya girme.]\n"
+        elif decision.get("action") == "bekle_ve_düşün":
+            full_context += "[Prefrontal Kararı]: Derin düşünce modu. Önce düşün, sonra cevap ver.]\n"
+        elif decision.get("action") == "öğrenme_odaklı":
+            full_context += "[Prefrontal Kararı]: Öğrenme fırsatı. Bilgiyi yapılandır.]\n"
 
         if working_context:
             full_context += f"\n{working_context}\n"
@@ -271,6 +282,9 @@ class ArtificialBrain:
         # Öğrenme motoru
         outcome = lang_analysis["sentiment"] * 0.5  # Basit outcome hesabı
         self.learning.learn_from_exchange(stimulus_data, thought_output, outcome, detected_topic or "")
+
+        # Kişilik evrimi (nöroplastisite)
+        self.ego.evolve_personality(stimulus_data, {"tone": current_mood})
 
         # --- 14. ENERJİ GÜNCELLEME ---
         energy_cost = 8 * intensity + lang_analysis["complexity"] * 5
@@ -428,6 +442,8 @@ class ArtificialBrain:
             self._save_state()
         if hasattr(self, 'goals'):
             self.goals.decay_motivation(rate=0.005)
+        if hasattr(self, 'subconscious'):
+            self.subconscious.stop()
 
 
 if __name__ == "__main__":

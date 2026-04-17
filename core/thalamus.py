@@ -1,5 +1,4 @@
 import re
-import math
 
 class Thalamus:
     def __init__(self):

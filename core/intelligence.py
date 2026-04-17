@@ -5,7 +5,7 @@ import time
 from core.model import MODEL_CONFIG
 
 class IntelligenceLayer:
-    def __init__(self, settings_path=None):
+    def __init__(self):
         """Merkezi model konfigürasyonunu yükler."""
         self.base_url = MODEL_CONFIG["base_url"].rstrip('/')
         self.api_key = MODEL_CONFIG["api_key"]
