@@ -118,6 +118,9 @@ class SelfAwareness:
         # 4. Kimlik evrimi
         self._evolve_identity(recent_experiences)
 
+        # 5. Derin öz-analiz (Self-Reflection 2.0)
+        self._deep_analysis(recent_experiences, current_state)
+
         # Periyodik kaydet
         if self.total_reflections % 3 == 0:
             self._save()
@@ -223,6 +226,33 @@ class SelfAwareness:
             "self_description": self.identity["self_description"],
             "timestamp": datetime.now().isoformat()
         })
+
+    def _deep_analysis(self, experiences, state):
+        """Derin öz-analiz — karşılaştırmalı düşünce."""
+        if len(experiences) < 3:
+            return
+        
+        # Duygu-tutarlılık analizi
+        topics_with_positive = sum(1 for e in experiences if e.get("topic"))
+        topics_unique = len(set(e.get("topic", "") for e in experiences if e.get("topic")))
+        
+        # Duygu durumuna göre öz-eleştiri
+        energy = state.get("energy", 100)
+        if energy > 80:
+            self.self_assessment["emotional_awareness"] = min(1.0, self.self_assessment["emotional_awareness"] + 0.02)
+        elif energy < 20:
+            self.self_assessment["self_criticism"] = min(1.0, self.self_assessment["self_criticism"] + 0.03)
+        
+        # Çeşitlilik analizi — çok çeşitli konular = gelişen beyin
+        if topics_unique >= 3:
+            self.self_assessment["growth_mindset"] = min(1.0, self.self_assessment["growth_mindset"] + 0.02)
+            self.values = list(set(self.values + ["farklı bakış açıları"][:1]))  # Keep unique
+        
+        # Bilgi sınırlarını sıkılaştır
+        for topic in self.knowledge_boundaries:
+            kb = self.knowledge_boundaries[topic]
+            if kb.get("encounters", 0) >= 5:
+                kb["confidence"] = min(0.95, kb["confidence"] + 0.01)
 
     def guess_user_intent(self, stimulus, language_analysis):
         """

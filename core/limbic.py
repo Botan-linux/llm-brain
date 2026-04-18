@@ -15,6 +15,8 @@ class LimbicSystem:
         self.development_stage = "adult" # Yetişkin
         self._mood_history = []  # Ruh hali geçmişi
         self._mood_momentum = {}  # Duygu ivmesi (hızlanma/yavaşlama)
+        self._emotion_velocity = {}  # Duygu değişim hızı
+        self._last_emotional_states = {}
 
     def update_state(self, stimulus_tone, energy_level):
         """Duygusal durumu günceller — insan beyni gibi hızlı tepki verir."""
@@ -48,16 +50,33 @@ class LimbicSystem:
             self.emotional_states["stress"] -= 0.03
 
         # --- Doğal gerileme (duygular zamanla sakinleşir) ---
-        self.emotional_states["stress"] *= 0.92      # Stres hızlıca sakinleşir
-        self.emotional_states["happiness"] *= 0.90   # Mutluluk orta hızda sakinleşir
-        self.emotional_states["fatigue"] *= 0.97      # Yorgunluk yavaş sakinleşir
-        self.emotional_states["interest"] *= 0.95    # İlgi yavaş sakinleşir
+        # Momentum: Ani değişimler yavaşlatılır (insanlarda duygu geçişleri kademeli)
+        for state in self.emotional_states:
+            velocity = self._emotion_velocity.get(state, 0)
+            # Büyük ani değişimler biraz frenlenir (inertia)
+            if abs(velocity) > 0.15:
+                damping = 0.85 if velocity > 0 else 1.1
+                self.emotional_states[state] *= damping
+
+        # Doğal gerileme (decay)
+        decay_rates = {
+            "stress": 0.90,
+            "happiness": 0.88,
+            "fatigue": 0.97,
+            "interest": 0.93,
+            "analytical": 0.95,
+            "empathy": 0.96
+        }
+        for state, rate in decay_rates.items():
+            self.emotional_states[state] *= rate
 
         # Değerleri sınırla
         for state in self.emotional_states:
             self.emotional_states[state] = max(0, min(1, self.emotional_states[state]))
 
         self._determine_mood()
+
+        self._update_emotion_momentum()
 
         # Ruh hali geçmişini kaydet
         self._mood_history.append(self.current_mood)
@@ -85,6 +104,14 @@ class LimbicSystem:
             self.current_mood = "analytical"
         else:
             self.current_mood = "balanced"
+
+    def _update_emotion_momentum(self):
+        """Duygu ivmesini takip et — ani değişimler daha yavaş olmalı (insan gibi)."""
+        for state_name in self.emotional_states:
+            old_val = self._last_emotional_states.get(state_name, self.emotional_states[state_name])
+            velocity = self.emotional_states[state_name] - old_val
+            self._emotion_velocity[state_name] = velocity
+            self._last_emotional_states[state_name] = self.emotional_states[state_name]
 
     def get_system_prompt_modifier(self):
         modifiers = {

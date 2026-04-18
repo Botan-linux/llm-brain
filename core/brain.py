@@ -23,6 +23,7 @@ from core.subconscious import Subconscious
 from core.creativity import CreativityModule
 from core.social_cognition import SocialCognition
 from core.intuition import IntuitionModule
+from core.memory_bank_sync import MemoryBankSync
 
 
 class ArtificialBrain:
@@ -84,6 +85,9 @@ class ArtificialBrain:
         self.creativity = CreativityModule()
         self.social_cognition = SocialCognition()
         self.intuition = IntuitionModule()
+
+        # Memory Bank senkronizasyonu
+        self.memory_sync = MemoryBankSync(self)
 
         # Durum yükle
         self.state = self._load_state()
@@ -387,6 +391,13 @@ class ArtificialBrain:
                     {"energy": self.state["energy"], "emotions": self.limbic.emotional_states}
                 )
 
+        # Memory Bank senkronizasyonu (her 5 tur'da bir)
+        if self.working_memory.turn_count % 5 == 0:
+            try:
+                self.memory_sync.sync_all()
+            except Exception:
+                pass
+
         return thought_output
 
     def _get_status(self):
@@ -491,6 +502,12 @@ class ArtificialBrain:
         # Uzun vadeli hedef ilerlemesi
         self.goals.update_long_term_progress("Öğrenme ve gelişim", 0.02)
         self.goals.update_long_term_progress("Kullanıcıya yardımcı olmak", 0.01)
+
+        # Memory Bank senkronizasyonu (uyku sonrası)
+        try:
+            self.memory_sync.sync_all()
+        except Exception:
+            pass
 
         # Durumu kaydet
         self._save_state()
